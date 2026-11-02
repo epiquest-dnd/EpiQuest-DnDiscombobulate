@@ -1,0 +1,1177 @@
+{
+  "milestones": [
+    {
+      "key": "M0",
+      "title": "M0 · Cadrage & architecture",
+      "due": "2026-11-08",
+      "description": "Choix d'architecture (ADR), format des effets, conventions, fichiers du dépôt, checklist accessibilité. Aucune ligne de code produit avant la fin de M0."
+    },
+    {
+      "key": "M1",
+      "title": "M1 · Fondations",
+      "due": "2026-11-22",
+      "description": "Modèle de données, monorepo, CI, installation en une commande, import SRD, analyseur de dés, comptes, squelette mobile, charte et design system, déploiement continu. Tag v0.1.0."
+    },
+    {
+      "key": "M2",
+      "title": "M2 · Personnages & cartes",
+      "due": "2026-12-06",
+      "description": "Moteur de règles (stats dérivées), jets côté serveur, campagnes et invitations, assistant de création et fiche web, éditeur de cartes, murs et portes, pions, CI mobile. Tag v0.2.0."
+    },
+    {
+      "key": "M3",
+      "title": "M3 · Table de jeu (follow-up)",
+      "due": "2026-12-20",
+      "description": "Ligne de vue, deux vues synchronisées et filtrées, conversion du SRD en effets, résolution des actions, bestiaire, notes de campagne, assistant mobile. Démo au follow-up de décembre. Tag v0.3.0."
+    },
+    {
+      "key": "M4",
+      "title": "M4 · Combat assisté & mobile",
+      "due": "2027-01-17",
+      "description": "Brouillard de guerre, initiative, effets du MJ, annulation, montée de niveau, rencontres, vue textuelle de la carte, fiche et dés mobile, campagne de démo. Tag v0.4.0. (Inclut la pause des fêtes.)"
+    },
+    {
+      "key": "M5",
+      "title": "M5 · Qualité & soutenance",
+      "due": "2027-01-29",
+      "description": "Audits d'accessibilité, documentation complète, mesures de performance, sécurité, test du nouvel arrivant, release v1.0.0, répétition de la soutenance. Date à caler sur la soutenance réelle."
+    }
+  ],
+  "labels": [
+    {
+      "name": "type: feature",
+      "color": "1D76DB",
+      "description": "Fonctionnalité produit"
+    },
+    {
+      "name": "type: tech",
+      "color": "5319E7",
+      "description": "Infra, outillage, refacto"
+    },
+    {
+      "name": "type: docs",
+      "color": "0E8A16",
+      "description": "Documentation"
+    },
+    {
+      "name": "type: test",
+      "color": "FBCA04",
+      "description": "Tests"
+    },
+    {
+      "name": "type: archi",
+      "color": "B60205",
+      "description": "Décision d'architecture (ADR)"
+    },
+    {
+      "name": "type: orga",
+      "color": "C5DEF5",
+      "description": "Gestion de projet"
+    },
+    {
+      "name": "domaine: dés",
+      "color": "F9D0C4",
+      "description": ""
+    },
+    {
+      "name": "domaine: règles",
+      "color": "F9D0C4",
+      "description": "Moteur de règles et format des effets"
+    },
+    {
+      "name": "domaine: srd",
+      "color": "F9D0C4",
+      "description": "Import des données du SRD"
+    },
+    {
+      "name": "domaine: personnages",
+      "color": "F9D0C4",
+      "description": ""
+    },
+    {
+      "name": "domaine: cartes",
+      "color": "F9D0C4",
+      "description": ""
+    },
+    {
+      "name": "domaine: vision",
+      "color": "F9D0C4",
+      "description": "Ligne de vue et brouillard de guerre"
+    },
+    {
+      "name": "domaine: sync",
+      "color": "F9D0C4",
+      "description": "Vue MJ / vue joueurs"
+    },
+    {
+      "name": "domaine: combat",
+      "color": "F9D0C4",
+      "description": ""
+    },
+    {
+      "name": "domaine: bestiaire",
+      "color": "F9D0C4",
+      "description": "Bestiaire et rencontres"
+    },
+    {
+      "name": "domaine: campagne",
+      "color": "F9D0C4",
+      "description": "Comptes, campagnes, notes, documents"
+    },
+    {
+      "name": "domaine: mobile",
+      "color": "F9D0C4",
+      "description": "Application Kotlin Multiplatform"
+    },
+    {
+      "name": "domaine: identité",
+      "color": "F9D0C4",
+      "description": "Nom, logo, charte, design system"
+    },
+    {
+      "name": "domaine: infra",
+      "color": "F9D0C4",
+      "description": "Dépôt, CI/CD, déploiement"
+    },
+    {
+      "name": "a11y",
+      "color": "D93F0B",
+      "description": "Accessibilité WCAG 2.2 AA"
+    },
+    {
+      "name": "sécurité",
+      "color": "B60205",
+      "description": "Serveur qui fait autorité, filtrage, OWASP"
+    },
+    {
+      "name": "taille: S",
+      "color": "EDEDED",
+      "description": "≤ 1 jour"
+    },
+    {
+      "name": "taille: M",
+      "color": "BFBFBF",
+      "description": "2-3 jours"
+    },
+    {
+      "name": "taille: L",
+      "color": "7F7F7F",
+      "description": "4-6 jours, à découper si possible"
+    },
+    {
+      "name": "good first issue",
+      "color": "7057FF",
+      "description": "Bonne entrée pour un nouveau contributeur"
+    },
+    {
+      "name": "bonus",
+      "color": "FEF2C0",
+      "description": "Valorisé mais non obligatoire"
+    },
+    {
+      "name": "priorité: haute",
+      "color": "B60205",
+      "description": "D'autres tâches en dépendent : à prendre en premier"
+    }
+  ],
+  "issues": [
+    {
+      "id": 1,
+      "title": "Créer le dépôt, protéger main et configurer GitHub Projects",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: orga",
+        "domaine: infra",
+        "priorité: haute",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Le sujet exige un tableau GitHub Projects tenu à jour du début à la fin et une branche principale protégée (§03-B).\n\n**Critères d'acceptation**\n- [ ] Dépôt créé, les 3 membres ont les droits d'écriture\n- [ ] Branche main protégée : PR obligatoire, 1 relecture minimum, pas de push direct\n- [ ] Projet GitHub lié au dépôt avec les colonnes Backlog / À faire / En cours / En relecture / Terminé\n- [ ] Labels, milestones et issues créés via setup/creer_backlog_github.py\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 2,
+      "title": "ADR-0002 : application mobile en Kotlin Multiplatform (cible Android)",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: archi",
+        "domaine: mobile",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Décision déjà prise : KMP, Android en priorité. Il faut la formaliser et la justifier (§02-K exige la justification).\n\n**Critères d'acceptation**\n- [ ] ADR rédigée dans docs/technique/adr/ avec contexte, options, choix, conséquences\n- [ ] Préciser : UI Compose Multiplatform ou UI native par plateforme ; l'iOS est-il un bonus ?\n- [ ] Vérifier que le choix n'est pas un « site emballé » (interdit)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 3,
+      "title": "ADR-0003 : relire la décision « moteur de règles sur le serveur »",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: archi",
+        "domaine: règles",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Décision prise : le moteur de règles tourne uniquement sur le serveur, web et mobile l'appellent par l'API (§02-K, §03-B). L'ADR est rédigée dans docs/technique/adr/.\n\n**Critères d'acceptation**\n- [ ] ADR relue et approuvée par les trois membres en PR\n- [ ] Conséquences sur la conception de l'API comprises par tous (brouillon complet envoyé, fiche calculée + erreurs renvoyées)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 4,
+      "title": "ADR-0004 : stack serveur, web et base de données",
+      "milestone": "M0",
+      "size": "M",
+      "labels": [
+        "type: archi",
+        "domaine: infra",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Stack libre mais justifiée dans la doc technique (§01-B). Le moteur de règles tourne sur le serveur (ADR-0003) : il sera écrit dans le langage du serveur.\n\n**Critères d'acceptation**\n- [ ] Langage/framework serveur, framework web, base de données et ORM choisis\n- [ ] Justification : compétences de l'équipe, partage du moteur, temps réel, tests, hébergement gratuit\n- [ ] ADR acceptée\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 5,
+      "title": "ADR-0005 : mécanisme de synchronisation temps réel des deux vues",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: archi",
+        "domaine: sync",
+        "priorité: haute",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Les deux vues sont synchronisées en direct et la vue joueurs ne reçoit jamais d'information cachée (§02-I, §03-B).\n\n**Critères d'acceptation**\n- [ ] Transport choisi (WebSocket, SSE…) et modèle (événements vs état complet vs diff)\n- [ ] Principe du filtrage par destinataire décrit (projection côté serveur)\n- [ ] ADR acceptée\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 6,
+      "title": "ADR-0006 : source et méthode d'import du SRD",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: archi",
+        "domaine: srd",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Import depuis une source publique (Open5e, 5e API, fichiers SRD), rejouable, versionné, puis fonctionnement sans l'API externe (§02-C).\n\n**Critères d'acceptation**\n- [ ] Source choisie et version du SRD identifiée (5.1 ou 5.2), licence CC BY 4.0 vérifiée\n- [ ] Stratégie de versionnement de l'import décrite\n- [ ] Texte d'attribution exact recopié depuis le document SRD\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 7,
+      "title": "ADR-0007 : hébergement gratuit et déploiement continu",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: archi",
+        "domaine: infra",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Chaque merge sur main doit mettre à jour le produit en ligne avec la campagne de démo (§03-B).\n\n**Critères d'acceptation**\n- [ ] Hébergeur(s) gratuit(s) choisi(s) pour serveur, web et base de données\n- [ ] Limites de l'offre gratuite notées (mise en veille, quotas)\n- [ ] ADR acceptée\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 8,
+      "title": "Format de description des effets v1 (spécification + exemples)",
+      "milestone": "M0",
+      "size": "M",
+      "labels": [
+        "type: docs",
+        "domaine: règles",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Les règles sont des données : chaque action est décrite par quelques types d'effets génériques (attaque, sauvegarde, dégâts, soins, état, modificateur) dans un format conçu par le groupe (§02-H, annexe A4).\n\n**Critères d'acceptation**\n- [ ] docs/technique/format-des-regles.md complété\n- [ ] Au moins 6 exemples : boule de feu, attaque à l'épée longue, soins, projectile magique, sort à concentration, effet libre du MJ\n- [ ] Relu par les deux autres membres\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 9,
+      "title": "Schéma d'architecture v1",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: docs",
+        "domaine: infra",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Schéma des composants (web, serveur, vues MJ et joueurs, moteur de règles, mobile) et flux de données (§03-C).\n\n**Critères d'acceptation**\n- [ ] docs/technique/architecture.md complété avec le schéma\n- [ ] Mis à jour une fois les ADR acceptées\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 10,
+      "title": "Conventions de contribution et modèles .github",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: orga",
+        "domaine: infra",
+        "taille: S"
+      ],
+      "body": "**Contexte** : CONTRIBUTING.md, convention de commits, stratégie de branches, modèles d'issue et de PR (§03-B).\n\n**Critères d'acceptation**\n- [ ] CONTRIBUTING.md reprend docs/projet/organisation.md (branches, commits, relecture, Definition of Done)\n- [ ] Modèles d'issue (bug, fonctionnalité) et de PR dans .github/\n- [ ] CODE_OF_CONDUCT.md ajouté\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 11,
+      "title": "Fichiers indispensables du dépôt",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: docs",
+        "domaine: infra",
+        "taille: S",
+        "good first issue"
+      ],
+      "body": "**Contexte** : README, LICENSE, CHANGELOG, .gitignore, .env.example, mention d'attribution du SRD, section usage de l'IA (§03-B, §03-D).\n\n**Critères d'acceptation**\n- [ ] README avec sections vides prêtes : présentation, prérequis, installation, lancement, tests, doc, usage de l'IA\n- [ ] LICENSE choisie, CHANGELOG.md au format Keep a Changelog\n- [ ] Fichier d'attribution SRD (texte exact de la CC BY 4.0)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 12,
+      "title": "Checklist accessibilité du projet et outils d'audit",
+      "milestone": "M0",
+      "size": "S",
+      "labels": [
+        "type: orga",
+        "a11y",
+        "taille: S"
+      ],
+      "body": "**Contexte** : WCAG 2.2 AA est exigé sur web et mobile, avec audit auto + manuel (§03-A). Mieux vaut l'intégrer dès le départ que le rattraper en janvier.\n\n**Critères d'acceptation**\n- [ ] Checklist courte ajoutée à la Definition of Done (clavier, focus, labels, contrastes, couleur seule)\n- [ ] Outils choisis : axe/Lighthouse en CI côté web, Accessibility Scanner + TalkBack côté Android\n- [ ] Lecteur d'écran installé chez chacun (NVDA, VoiceOver ou Orca)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 13,
+      "title": "Modèle de données v1",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: docs",
+        "domaine: règles",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Schéma des entités demandé par le sujet (§03-C) : campagne, utilisateur, personnage, classe, espèce, sort, objet, monstre, carte, calque, pion, rencontre, combat, jet.\n\n**Critères d'acceptation**\n- [ ] Diagramme des entités dans docs/technique/modele-de-donnees.md\n- [ ] Données de règles (SRD) séparées des données de partie\n- [ ] Relu par les deux autres membres\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 14,
+      "title": "Nom du produit, logo et mini charte graphique",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: identité",
+        "taille: M"
+      ],
+      "body": "**Contexte** : « EpiQuest » est le nom du sujet, pas du produit. Aucune référence à D&D ni à Epitech, aucune reprise d'interface existante (§01-C, §02-A).\n\n**Critères d'acceptation**\n- [ ] Nom original choisi (vérifier qu'il n'est pas déjà une marque de JdR)\n- [ ] Logo créé par le groupe ou sous licence libre, crédité\n- [ ] Mini charte 1-2 pages : couleurs (contrastes AA vérifiés), typographies, déclinaisons web / table / mobile\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 15,
+      "title": "Initialiser le monorepo selon la stack choisie",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: tech",
+        "domaine: infra",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Arborescence claire : serveur (dont le moteur de règles isolé dans son propre module), web, mobile, docs, scripts (§03-B).\n\n**Critères d'acceptation**\n- [ ] Arborescence documentée dans le README et le guide de prise en main\n- [ ] Lockfiles commités, versions d'outils fixées\n- [ ] Tous les tests (serveur, web, moteur, mobile) se lancent en une seule commande\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 16,
+      "title": "Linter et formateur appliqués automatiquement",
+      "milestone": "M1",
+      "size": "S",
+      "labels": [
+        "type: tech",
+        "domaine: infra",
+        "taille: S",
+        "good first issue"
+      ],
+      "body": "**Contexte** : Linter et formateur via pre-commit ou CI (§03-B).\n\n**Critères d'acceptation**\n- [ ] Hook pre-commit (lint + format + message de commit conventionnel)\n- [ ] Même configuration exécutée en CI\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 17,
+      "title": "CI : lint, tests et build à chaque pull request",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: tech",
+        "domaine: infra",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Une PR dont le pipeline échoue ne peut pas être mergée (§03-B).\n\n**Critères d'acceptation**\n- [ ] Workflow GitHub Actions sur chaque PR : lint, tests serveur/web/moteur, build\n- [ ] Vérifications rendues obligatoires dans la protection de main\n- [ ] Badge d'état dans le README\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 18,
+      "title": "Installation en une commande (Docker Compose ou devcontainer)",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: tech",
+        "domaine: infra",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Test du nouvel arrivant : cloner, lancer le produit avec la campagne de démo et les tests en moins de 15 minutes (§03-B).\n\n**Critères d'acceptation**\n- [ ] Une commande démarre BDD + serveur + web\n- [ ] Import SRD et chargement de la campagne de démo inclus\n- [ ] .env.example documenté, aucun secret commité\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 19,
+      "title": "Déploiement continu de main sur l'hébergement gratuit",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: tech",
+        "domaine: infra",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Chaque merge sur main met à jour le produit en ligne avec la campagne de démo (§03-B).\n\n**Critères d'acceptation**\n- [ ] Workflow de déploiement déclenché sur main\n- [ ] Secrets dans les GitHub Secrets uniquement\n- [ ] URL de production dans le README\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 20,
+      "title": "Script d'import du SRD rejouable et versionné",
+      "milestone": "M1",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: srd",
+        "priorité: haute",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Espèces, classes, historiques, sorts, équipements, objets magiques, monstres, états importés dans notre base ; ensuite plus aucune dépendance à l'API externe (§02-C).\n\n**Critères d'acceptation**\n- [ ] Import idempotent (relancer ne duplique rien)\n- [ ] Version de la source et de l'import enregistrées\n- [ ] Données brutes figées dans le dépôt ou en cache pour ne plus dépendre de l'API\n- [ ] Tests sur un échantillon (nombre de sorts, un monstre de référence)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 21,
+      "title": "Analyseur de notation de dés",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: dés",
+        "taille: M"
+      ],
+      "body": "**Contexte** : 2d6+3, 4d6kh3, avantage/désavantage, dés explosifs, relances, plusieurs dés dans une expression ; erreurs de saisie expliquées (§02-E).\n\n**Critères d'acceptation**\n- [ ] Grammaire documentée dans docs/technique/des.md\n- [ ] Messages d'erreur avec position et suggestion\n- [ ] Tests unitaires couvrant chaque élément de la grammaire et les erreurs\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 22,
+      "title": "Comptes utilisateurs : inscription, connexion, sessions sécurisées",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: campagne",
+        "sécurité",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Chaque utilisateur a un compte ; mots de passe hachés, sessions sécurisées (§02-B, §03-B).\n\n**Critères d'acceptation**\n- [ ] Hachage argon2 ou bcrypt\n- [ ] Sessions/jetons sécurisés (cookies HttpOnly, SameSite, expiration)\n- [ ] Formulaires accessibles (labels, erreurs annoncées)\n- [ ] Tests d'authentification\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 23,
+      "title": "Projet Kotlin Multiplatform initial (Android)",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: tech",
+        "domaine: mobile",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Squelette de l'app : modules partagés, app Android, client API (§02-K).\n\n**Critères d'acceptation**\n- [ ] App Android qui démarre sur émulateur et appelle l'API (santé + connexion)\n- [ ] Module `shared` : modèles et client API, aucune règle de jeu (ADR-0003)\n- [ ] Procédure de lancement sur émulateur documentée\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 24,
+      "title": "Design system web accessible (base)",
+      "milestone": "M1",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: identité",
+        "a11y",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Couleurs contrastées, typographie, composants de base avec focus visible, prefers-reduced-motion respecté (§03-A).\n\n**Critères d'acceptation**\n- [ ] Jetons de design (couleurs AA, tailles, espacements) issus de la charte\n- [ ] Composants bouton, champ, modale, liste, onglets accessibles au clavier\n- [ ] Zoom 200 % sans perte de contenu sur une page type\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 25,
+      "title": "Logs et messages d'erreur compréhensibles en développement",
+      "milestone": "M2",
+      "size": "S",
+      "labels": [
+        "type: tech",
+        "domaine: infra",
+        "taille: S",
+        "good first issue"
+      ],
+      "body": "**Contexte** : Exigé pour l'accueil d'un nouveau contributeur (§03-B).\n\n**Critères d'acceptation**\n- [ ] Logger structuré côté serveur, niveaux configurables\n- [ ] Erreurs d'API au format homogène avec message lisible\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 26,
+      "title": "Évaluation des jets côté serveur avec générateur aléatoire sûr",
+      "milestone": "M2",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: dés",
+        "sécurité",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Jets calculés côté serveur, un joueur ne peut pas truquer ses dés (§02-E, §03-B).\n\n**Critères d'acceptation**\n- [ ] Générateur cryptographiquement sûr côté serveur\n- [ ] Résultat détaillé (chaque dé, dés gardés/écartés, explosions)\n- [ ] Tests statistiques de distribution (khi-deux sur d20, 4d6kh3…)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 27,
+      "title": "Campagnes : création, invitation par lien ou code, rôles MJ / joueur",
+      "milestone": "M2",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: campagne",
+        "sécurité",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Un même utilisateur peut être MJ d'une campagne et joueur dans une autre ; permissions vérifiées côté serveur (§02-B).\n\n**Critères d'acceptation**\n- [ ] Créer une campagne, générer lien et code d'invitation\n- [ ] Rejoindre et rattacher un personnage\n- [ ] Contrôle d'accès serveur testé (un joueur ne lit pas les données MJ)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 28,
+      "title": "Moteur de règles : statistiques dérivées",
+      "milestone": "M2",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: règles",
+        "type: test",
+        "priorité: haute",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Modificateurs, bonus de maîtrise, CA, PV, jets de sauvegarde, emplacements de sorts, poids porté, recalculés automatiquement (§02-D).\n\n**Critères d'acceptation**\n- [ ] Calcul piloté par les données du SRD, pas de cas codé en dur par classe\n- [ ] 4 personnages de référence dont toutes les valeurs calculées sont vérifiées en test\n- [ ] Section « Moteur de règles » de la doc technique amorcée\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 29,
+      "title": "API du moteur de règles : brouillon de personnage → fiche calculée",
+      "milestone": "M2",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: règles",
+        "domaine: personnages",
+        "type: test",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Le moteur ne tourne que sur le serveur (ADR-0003). Web et mobile envoient le brouillon complet du personnage et reçoivent tout ce qu'il faut pour l'afficher (§02-D, §02-K).\n\n**Critères d'acceptation**\n- [ ] Point d'API qui reçoit le brouillon et renvoie fiche calculée, erreurs de validation par champ (messages lisibles) et choix encore possibles\n- [ ] Même point d'API utilisé par le web et le mobile\n- [ ] Contrat documenté (OpenAPI ou équivalent) dans la doc technique\n- [ ] Tests d'API sur les personnages de référence et sur des brouillons invalides\n- [ ] Temps de réponse mesuré\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 30,
+      "title": "Assistant de création web : espèce, classe, historique",
+      "milestone": "M2",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: personnages",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Assistant pas à pas (§02-D).\n\n**Critères d'acceptation**\n- [ ] Étapes navigables au clavier, titres hiérarchisés, progression annoncée\n- [ ] Choix validés par le moteur (prérequis)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 31,
+      "title": "Assistant : caractéristiques (achat de points, tableau standard, 4d6)",
+      "milestone": "M2",
+      "size": "S",
+      "labels": [
+        "type: feature",
+        "domaine: personnages",
+        "taille: S",
+        "good first issue"
+      ],
+      "body": "**Contexte** : Trois méthodes de génération des caractéristiques (§02-D).\n\n**Critères d'acceptation**\n- [ ] Les trois méthodes disponibles, 4d6 lancé côté serveur\n- [ ] Budget d'achat de points validé\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 32,
+      "title": "Assistant : compétences, maîtrises, équipement de départ et sorts",
+      "milestone": "M2",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: personnages",
+        "domaine: règles",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Chaque choix est validé : nombre de compétences, sorts autorisés… (§02-D).\n\n**Critères d'acceptation**\n- [ ] Validation par le moteur avec messages explicites\n- [ ] Tests sur les cas limites (trop de compétences, sort hors liste)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 33,
+      "title": "Fiche de personnage interactive (web)",
+      "milestone": "M2",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: personnages",
+        "a11y",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Un clic sur une compétence lance le jet correspondant (§02-D).\n\n**Critères d'acceptation**\n- [ ] Toutes les valeurs du moteur affichées et libellées\n- [ ] Chaque jet lançable au clavier\n- [ ] Information jamais portée par la couleur seule (PV bas…)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 34,
+      "title": "CI mobile : tests et APK en artefact",
+      "milestone": "M2",
+      "size": "M",
+      "labels": [
+        "type: tech",
+        "domaine: mobile",
+        "domaine: infra",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Chaque merge produit automatiquement un build installable (APK) disponible en artefact du pipeline (§03-B).\n\n**Critères d'acceptation**\n- [ ] Tests mobile exécutés sur chaque PR\n- [ ] APK debug publié en artefact à chaque merge sur main\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 35,
+      "title": "Éditeur de cartes : grille, image de fond, décor, calques",
+      "milestone": "M2",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: cartes",
+        "priorité: haute",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Grille carrée ou hexagonale, image de fond, décor, calques fond / décor / pions / MJ (§02-F).\n\n**Critères d'acceptation**\n- [ ] Modèle carte + calques persisté\n- [ ] Calque MJ jamais envoyé aux joueurs (prévu dans le modèle)\n- [ ] Visuels sous licence libre ou créés par le groupe, crédités\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 36,
+      "title": "Murs et portes (ouvertes / fermées)",
+      "milestone": "M2",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: cartes",
+        "priorité: haute",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Murs et portes bloquent déplacements et vue (§02-F).\n\n**Critères d'acceptation**\n- [ ] Dessin des murs et portes dans l'éditeur\n- [ ] Ouverture/fermeture des portes en partie\n- [ ] Déplacement bloqué par un mur ou une porte fermée (testé)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 37,
+      "title": "Pions : placement et déplacement à la souris et au clavier",
+      "milestone": "M2",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: cartes",
+        "a11y",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Le déplacement des pions doit être utilisable sans souris (§03-A).\n\n**Critères d'acceptation**\n- [ ] Sélection et déplacement case par case au clavier\n- [ ] Déplacement validé côté serveur\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 38,
+      "title": "Conversion des sorts et attaques du SRD vers le format d'effets",
+      "milestone": "M3",
+      "size": "L",
+      "labels": [
+        "type: tech",
+        "domaine: srd",
+        "domaine: règles",
+        "priorité: haute",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Le moteur n'interprète pas le texte : il faut une description structurée des sorts et attaques (§02-H).\n\n**Critères d'acceptation**\n- [ ] Sorts de niveau 0 à 3 des classes du SRD convertis (au minimum ceux utiles niveaux 1-5)\n- [ ] Attaques des monstres de la campagne de démo converties\n- [ ] Liste des cas non représentables, à traiter par les effets manuels du MJ\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 39,
+      "title": "Ligne de vue calculée à partir des murs et portes",
+      "milestone": "M3",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: vision",
+        "type: test",
+        "priorité: haute",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Base de la révélation automatique du brouillard (§02-F). Temps de calcul à mesurer (§03-B).\n\n**Critères d'acceptation**\n- [ ] Algorithme documenté (lancer de rayons / ombrage) dans docs/technique\n- [ ] Tests sur des configurations de référence (couloir, porte ouverte/fermée, coin)\n- [ ] Temps de calcul mesuré sur une carte chargée\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 40,
+      "title": "Vue joueurs synchronisée dans une seconde fenêtre",
+      "milestone": "M3",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: sync",
+        "priorité: haute",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Déplacements, brouillard, initiative, PV, jets publics et documents révélés synchronisés en direct (§02-I).\n\n**Critères d'acceptation**\n- [ ] Ouverture de la vue joueurs depuis la vue MJ (2e fenêtre / 2e écran)\n- [ ] Synchronisation en direct, reconnexion gérée\n- [ ] Temps de synchronisation mesuré\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 41,
+      "title": "Filtrage serveur des informations envoyées à la vue joueurs",
+      "milestone": "M3",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: sync",
+        "sécurité",
+        "type: test",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Pions et zones sous le brouillard, calque MJ, jets cachés, notes privées ne sont JAMAIS transmis, même dans les données reçues par le navigateur. États approximatifs : indemne / blessé / à terre (§02-I, §03-B).\n\n**Critères d'acceptation**\n- [ ] Projection serveur dédiée à la vue joueurs\n- [ ] Tests automatisés qui inspectent les messages envoyés\n- [ ] PV exacts des monstres jamais transmis\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 42,
+      "title": "Jets publics, privés, cachés et historique de session",
+      "milestone": "M3",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: dés",
+        "domaine: sync",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Jets publics, privés (MJ seul) ou cachés (jets du MJ), historique complet de la session (§02-E).\n\n**Critères d'acceptation**\n- [ ] Visibilité appliquée côté serveur\n- [ ] Historique consultable et accessible (liste annoncée)\n- [ ] Animation de dés désactivable (prefers-reduced-motion)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 43,
+      "title": "Bestiaire : recherche, filtres et fiche monstre",
+      "milestone": "M3",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: bestiaire",
+        "taille: M",
+        "good first issue"
+      ],
+      "body": "**Contexte** : Filtres type, facteur de puissance, taille ; fiche complète (§02-G).\n\n**Critères d'acceptation**\n- [ ] Recherche et filtres utilisables au clavier\n- [ ] Fiche monstre structurée (titres, tableaux accessibles)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 44,
+      "title": "Résolution automatique des actions de combat",
+      "milestone": "M3",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: combat",
+        "domaine: règles",
+        "type: test",
+        "priorité: haute",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Attaque contre la CA, sauvegarde contre un DD, dégâts typés (résistances, vulnérabilités, immunités), soins, zone et cibles, consommation des ressources, états et durée (§02-H, annexe A1).\n\n**Critères d'acceptation**\n- [ ] Résolution entièrement pilotée par le format d'effets\n- [ ] Résultat calculé mais PAS appliqué : renvoyé pour prévisualisation\n- [ ] Tests de résolution (boule de feu de l'annexe A1 en test de référence)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture).\n\n⚠️ **Priorité haute** : d'autres tâches en dépendent, à prendre en premier dans le milestone."
+    },
+    {
+      "id": 45,
+      "title": "Mobile : assistant de création de personnage",
+      "milestone": "M3",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: mobile",
+        "domaine: personnages",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Même moteur de règles que le web (§02-K).\n\n**Critères d'acceptation**\n- [ ] Toutes les étapes de l'assistant disponibles\n- [ ] Calculs et validations fournis par l'API du moteur, aucune règle codée dans l'application\n- [ ] Message clair si le réseau est indisponible\n- [ ] TalkBack et tailles de texte dynamiques testés sur ces écrans\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 46,
+      "title": "Gestion de campagne : notes du MJ, PNJ, lieux, quêtes",
+      "milestone": "M3",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: campagne",
+        "taille: M"
+      ],
+      "body": "**Contexte** : §02-J.\n\n**Critères d'acceptation**\n- [ ] CRUD notes, PNJ, lieux, quêtes\n- [ ] Notes privées jamais transmises aux joueurs\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 47,
+      "title": "Probabilités d'une expression de dés",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: dés",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Minimum, maximum, moyenne, distribution (§02-E).\n\n**Critères d'acceptation**\n- [ ] Distribution exacte (convolution) quand c'est possible, simulation sinon\n- [ ] Affichage accessible (tableau en plus du graphique)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 48,
+      "title": "Brouillard de guerre : révélation manuelle et automatique",
+      "milestone": "M4",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: vision",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Révélation manuelle par le MJ et automatique selon la ligne de vue des personnages (§02-F).\n\n**Critères d'acceptation**\n- [ ] Le MJ révèle/masque une zone\n- [ ] Révélation automatique à chaque déplacement\n- [ ] Tests du brouillard\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 49,
+      "title": "Initiative et ordre des tours",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: combat",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Automatique côté produit (§02-H).\n\n**Critères d'acceptation**\n- [ ] Jets d'initiative côté serveur, égalités gérées\n- [ ] Tour courant visible sur les deux vues et annoncé aux lecteurs d'écran\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 50,
+      "title": "Outil MJ « Ajouter un effet »",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: combat",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Sur une ou plusieurs cibles : état, dégâts ou soins, modificateur temporaire, effet libre (nom, description, déclenchement, durée). Ex. : « prend feu », 1d4/tour pendant 2 tours (§02-H).\n\n**Critères d'acceptation**\n- [ ] Les 4 types d'effets disponibles\n- [ ] Effets à déclenchement par tour gérés par le moteur\n- [ ] Utilisable au clavier\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 51,
+      "title": "Prévisualisation, modification, annulation et journal de partie",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: combat",
+        "type: test",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Chaque résultat est affiché avant application, modifiable ou annulable par le MJ, et historisé (§02-H).\n\n**Critères d'acceptation**\n- [ ] Écran de prévisualisation des résultats (cibles, jets, dégâts)\n- [ ] Annulation d'une action appliquée (retour à l'état précédent)\n- [ ] Journal persistant et tests d'annulation\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 52,
+      "title": "Concentration, jets contre la mort, PV temporaires",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: combat",
+        "domaine: règles",
+        "taille: M"
+      ],
+      "body": "**Contexte** : §02-H.\n\n**Critères d'acceptation**\n- [ ] Jet de concentration proposé quand un lanceur concentré subit des dégâts\n- [ ] Jets contre la mort et stabilisation\n- [ ] PV temporaires absorbés en premier, tests\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 53,
+      "title": "Montée de niveau 1 → 5 pour toutes les classes du SRD",
+      "milestone": "M4",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: personnages",
+        "domaine: règles",
+        "type: test",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Nouvelles capacités, sous-classe, augmentation de caractéristiques, nouveaux sorts (§02-D).\n\n**Critères d'acceptation**\n- [ ] Les 12 classes du SRD jouables jusqu'au niveau 5\n- [ ] Tests de montée de niveau sur les personnages de référence\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 54,
+      "title": "Constructeur de rencontres et calcul de difficulté",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: bestiaire",
+        "type: test",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Facile, moyenne, difficile, mortelle selon les règles 5e et le groupe (§02-G).\n\n**Critères d'acceptation**\n- [ ] Calcul conforme aux règles du SRD retenu\n- [ ] Tests de difficulté sur des cas de référence\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 55,
+      "title": "Vie du personnage : PV, repos, emplacements, inventaire, argent, notes",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: personnages",
+        "taille: M"
+      ],
+      "body": "**Contexte** : §02-D.\n\n**Critères d'acceptation**\n- [ ] Repos court et long avec effets corrects\n- [ ] Inventaire et poids porté recalculé\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 56,
+      "title": "Mesure des distances, gabarits de zone et placement de rencontre",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: cartes",
+        "domaine: bestiaire",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Distances selon les règles 5e, gabarits cône/ligne/sphère/cube, placement d'une rencontre en un clic (§02-F, §02-G).\n\n**Critères d'acceptation**\n- [ ] Gabarits utilisables au clavier, cibles détectées\n- [ ] Rencontre placée en un clic sur la carte\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 57,
+      "title": "Vue alternative textuelle de la carte et annonces lecteur d'écran",
+      "milestone": "M4",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: cartes",
+        "a11y",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Pions visibles, positions, distances, zones révélées ; tour, jets et dégâts annoncés aux lecteurs d'écran (§03-A).\n\n**Critères d'acceptation**\n- [ ] Vue textuelle synchronisée avec la carte\n- [ ] Région live ARIA pour les événements de partie\n- [ ] Testé avec un lecteur d'écran\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 58,
+      "title": "Documents à révéler sur la vue joueurs",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: campagne",
+        "domaine: sync",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Lettres, images, indices révélés pendant la partie (§02-J).\n\n**Critères d'acceptation**\n- [ ] Le MJ révèle / masque un document\n- [ ] Document non révélé jamais transmis à la vue joueurs\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 59,
+      "title": "Mobile : fiche, mise à jour et lancer de dés",
+      "milestone": "M4",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: mobile",
+        "domaine: dés",
+        "taille: L"
+      ],
+      "body": "**Contexte** : Consulter et mettre à jour sa fiche, lancer ses dés (§02-K).\n\n**Critères d'acceptation**\n- [ ] Fiche complète et modifiable\n- [ ] Jets côté serveur\n- [ ] Tests logique et interface mobile\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 60,
+      "title": "Accessibilité mobile",
+      "milestone": "M4",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: mobile",
+        "a11y",
+        "taille: M"
+      ],
+      "body": "**Contexte** : TalkBack, tailles de texte dynamiques, zones tactiles ≥ 48 dp (§03-A).\n\n**Critères d'acceptation**\n- [ ] Tous les écrans parcourus avec TalkBack\n- [ ] Police à 200 % sans perte de contenu\n- [ ] Rapport Accessibility Scanner sans erreur bloquante\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 61,
+      "title": "Campagne de démonstration chargée automatiquement",
+      "milestone": "M4",
+      "size": "L",
+      "labels": [
+        "type: feature",
+        "domaine: campagne",
+        "taille: L"
+      ],
+      "body": "**Contexte** : 4 personnages de classes différentes (niveaux 1 à 5), 3 cartes dont une avec murs et portes, une rencontre par carte (§02-L).\n\n**Critères d'acceptation**\n- [ ] Données de démo versionnées et chargées par l'installation et le déploiement\n- [ ] Cartes sous licence libre ou créées par le groupe, créditées\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 62,
+      "title": "Export PDF de la fiche de personnage",
+      "milestone": "M5",
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "domaine: personnages",
+        "taille: M",
+        "good first issue"
+      ],
+      "body": "**Contexte** : §02-D.\n\n**Critères d'acceptation**\n- [ ] PDF lisible et balisé (accessible si possible)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 63,
+      "title": "Audit d'accessibilité web",
+      "milestone": "M5",
+      "size": "M",
+      "labels": [
+        "type: test",
+        "a11y",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Outils automatiques + tests manuels : création d'un personnage et tour de combat complets au clavier et au lecteur d'écran (§03-A).\n\n**Critères d'acceptation**\n- [ ] Rapports axe / Lighthouse / WAVE archivés\n- [ ] Parcours manuels documentés, défauts corrigés ou listés\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 64,
+      "title": "Audit d'accessibilité mobile",
+      "milestone": "M5",
+      "size": "M",
+      "labels": [
+        "type: test",
+        "a11y",
+        "domaine: mobile",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Création d'un personnage au clavier/TalkBack sur l'application (§03-A).\n\n**Critères d'acceptation**\n- [ ] Parcours TalkBack documenté\n- [ ] Défauts corrigés ou listés\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 65,
+      "title": "Déclaration d'accessibilité",
+      "milestone": "M5",
+      "size": "S",
+      "labels": [
+        "type: docs",
+        "a11y",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Niveau atteint, limites connues, actions prévues (§03-A).\n\n**Critères d'acceptation**\n- [ ] Déclaration publiée dans /docs et liée depuis le produit\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 66,
+      "title": "Documentation utilisateur : maître du jeu",
+      "milestone": "M5",
+      "size": "M",
+      "labels": [
+        "type: docs",
+        "domaine: campagne",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Créer une campagne, dessiner une carte, préparer une rencontre, afficher la vue joueurs, mener un combat, ajouter des effets, révéler des documents (§03-C).\n\n**Critères d'acceptation**\n- [ ] Guide pas à pas illustré (captures avec texte alternatif)\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 67,
+      "title": "Documentation utilisateur : joueur et application mobile",
+      "milestone": "M5",
+      "size": "M",
+      "labels": [
+        "type: docs",
+        "domaine: personnages",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Créer et faire évoluer son personnage, lancer des dés, rejoindre une campagne, utiliser le mobile (§03-C).\n\n**Critères d'acceptation**\n- [ ] Guide pas à pas illustré\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 68,
+      "title": "Aide-mémoire de la notation des dés et FAQ",
+      "milestone": "M5",
+      "size": "S",
+      "labels": [
+        "type: docs",
+        "domaine: dés",
+        "taille: S",
+        "good first issue"
+      ],
+      "body": "**Contexte** : §03-C, « Pour tous ».\n\n**Critères d'acceptation**\n- [ ] Aide-mémoire accessible depuis le lanceur de dés\n- [ ] FAQ et page des fonctionnalités d'accessibilité\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 69,
+      "title": "Relecture finale de la documentation technique",
+      "milestone": "M5",
+      "size": "M",
+      "labels": [
+        "type: docs",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Toutes les rubriques du §03-C présentes et à jour ; chaque membre doit pouvoir expliquer tout le code en soutenance (§03-D).\n\n**Critères d'acceptation**\n- [ ] Chaque rubrique relue par quelqu'un qui ne l'a pas écrite\n- [ ] Pipeline CI/CD décrit, ADR à jour\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 70,
+      "title": "Test du nouvel arrivant et guide de prise en main",
+      "milestone": "M5",
+      "size": "M",
+      "labels": [
+        "type: test",
+        "domaine: infra",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Un développeur extérieur clone le dépôt et lance produit + tests en moins de 15 minutes avec le seul README (§03-B).\n\n**Critères d'acceptation**\n- [ ] Guide : où se trouve quoi, comment le moteur interprète une capacité, comment lancer un seul test\n- [ ] Test réalisé par une personne extérieure, chronométré, frictions corrigées\n- [ ] Issues « good first issue » ouvertes et roadmap visible dans le projet\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 71,
+      "title": "Revue sécurité (OWASP Top 10)",
+      "milestone": "M5",
+      "size": "M",
+      "labels": [
+        "type: test",
+        "sécurité",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Permissions côté serveur, injection, XSS, CSRF, en-têtes, limitation de débit, dépendances à jour (§03-B).\n\n**Critères d'acceptation**\n- [ ] Checklist OWASP passée et documentée\n- [ ] Audit des dépendances sans vulnérabilité critique\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 72,
+      "title": "Mesures de performance documentées",
+      "milestone": "M5",
+      "size": "S",
+      "labels": [
+        "type: docs",
+        "domaine: sync",
+        "domaine: vision",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Temps de synchronisation et de calcul de la ligne de vue sur une carte chargée (§03-B).\n\n**Critères d'acceptation**\n- [ ] Protocole de mesure et résultats dans la doc « Exploitation »\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 73,
+      "title": "Release v1.0.0",
+      "milestone": "M5",
+      "size": "S",
+      "labels": [
+        "type: orga",
+        "domaine: infra",
+        "taille: S"
+      ],
+      "body": "**Contexte** : Versions taguées aux étapes clés, versionnage sémantique (§03-B).\n\n**Critères d'acceptation**\n- [ ] CHANGELOG à jour, tag v1.0.0, release GitHub avec l'APK\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 74,
+      "title": "Préparer et répéter la soutenance",
+      "milestone": "M5",
+      "size": "M",
+      "labels": [
+        "type: orga",
+        "taille: M"
+      ],
+      "body": "**Contexte** : Création d'un personnage sur mobile, puis combat sur deux écrans avec le jury comme joueurs, parcours accessible, questions sur le code (§04-A).\n\n**Critères d'acceptation**\n- [ ] Script de démo minuté\n- [ ] Plan B si le réseau ou l'hébergement tombe (version locale prête)\n- [ ] 2 répétitions complètes à 3\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 75,
+      "title": "[Bonus] Niveaux 6 à 20",
+      "milestone": null,
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "bonus"
+      ],
+      "body": "**Contexte** : Bonus §02-L.\n\n**Critères d'acceptation**\n- [ ] À ne démarrer que si tout le périmètre obligatoire est terminé\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 76,
+      "title": "[Bonus] Sources de lumière et vision dans le noir",
+      "milestone": null,
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "bonus"
+      ],
+      "body": "**Contexte** : Bonus §02-L.\n\n**Critères d'acceptation**\n- [ ] À ne démarrer que si tout le périmètre obligatoire est terminé\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 77,
+      "title": "[Bonus] Jets lancés depuis le mobile affichés sur la vue joueurs",
+      "milestone": null,
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "bonus"
+      ],
+      "body": "**Contexte** : Bonus §02-L.\n\n**Critères d'acceptation**\n- [ ] À ne démarrer que si tout le périmètre obligatoire est terminé\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 78,
+      "title": "[Bonus] Import de cartes au format Universal VTT",
+      "milestone": null,
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "bonus"
+      ],
+      "body": "**Contexte** : Bonus §02-L.\n\n**Critères d'acceptation**\n- [ ] À ne démarrer que si tout le périmètre obligatoire est terminé\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    },
+    {
+      "id": 79,
+      "title": "[Bonus] Ambiance sonore",
+      "milestone": null,
+      "size": "M",
+      "labels": [
+        "type: feature",
+        "bonus"
+      ],
+      "body": "**Contexte** : Bonus §02-L.\n\n**Critères d'acceptation**\n- [ ] À ne démarrer que si tout le périmètre obligatoire est terminé\n\n**Definition of Done** : voir docs/projet/organisation.md (tests, doc, accessibilité, relecture)."
+    }
+  ]
+}

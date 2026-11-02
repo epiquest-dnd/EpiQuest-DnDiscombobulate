@@ -1,0 +1,80 @@
+﻿#;Milestone;Échéance;Priorité;Taille;Titre;Labels
+1;M0 · Cadrage & architecture;2026-11-08;haute;S;Créer le dépôt, protéger main et configurer GitHub Projects;type: orga, domaine: infra, priorité: haute, taille: S
+2;M0 · Cadrage & architecture;2026-11-08;;S;ADR-0002 : application mobile en Kotlin Multiplatform (cible Android);type: archi, domaine: mobile, taille: S
+3;M0 · Cadrage & architecture;2026-11-08;;S;ADR-0003 : relire la décision « moteur de règles sur le serveur »;type: archi, domaine: règles, taille: S
+4;M0 · Cadrage & architecture;2026-11-08;haute;M;ADR-0004 : stack serveur, web et base de données;type: archi, domaine: infra, priorité: haute, taille: M
+5;M0 · Cadrage & architecture;2026-11-08;haute;S;ADR-0005 : mécanisme de synchronisation temps réel des deux vues;type: archi, domaine: sync, priorité: haute, taille: S
+6;M0 · Cadrage & architecture;2026-11-08;;S;ADR-0006 : source et méthode d'import du SRD;type: archi, domaine: srd, taille: S
+7;M0 · Cadrage & architecture;2026-11-08;;S;ADR-0007 : hébergement gratuit et déploiement continu;type: archi, domaine: infra, taille: S
+8;M0 · Cadrage & architecture;2026-11-08;haute;M;Format de description des effets v1 (spécification + exemples);type: docs, domaine: règles, priorité: haute, taille: M
+9;M0 · Cadrage & architecture;2026-11-08;;S;Schéma d'architecture v1;type: docs, domaine: infra, taille: S
+10;M0 · Cadrage & architecture;2026-11-08;;S;Conventions de contribution et modèles .github;type: orga, domaine: infra, taille: S
+11;M0 · Cadrage & architecture;2026-11-08;;S;Fichiers indispensables du dépôt;type: docs, domaine: infra, taille: S, good first issue
+12;M0 · Cadrage & architecture;2026-11-08;;S;Checklist accessibilité du projet et outils d'audit;type: orga, a11y, taille: S
+13;M1 · Fondations;2026-11-22;haute;M;Modèle de données v1;type: docs, domaine: règles, priorité: haute, taille: M
+14;M1 · Fondations;2026-11-22;;M;Nom du produit, logo et mini charte graphique;type: feature, domaine: identité, taille: M
+15;M1 · Fondations;2026-11-22;haute;M;Initialiser le monorepo selon la stack choisie;type: tech, domaine: infra, priorité: haute, taille: M
+16;M1 · Fondations;2026-11-22;;S;Linter et formateur appliqués automatiquement;type: tech, domaine: infra, taille: S, good first issue
+17;M1 · Fondations;2026-11-22;haute;M;CI : lint, tests et build à chaque pull request;type: tech, domaine: infra, priorité: haute, taille: M
+18;M1 · Fondations;2026-11-22;haute;M;Installation en une commande (Docker Compose ou devcontainer);type: tech, domaine: infra, priorité: haute, taille: M
+19;M1 · Fondations;2026-11-22;;M;Déploiement continu de main sur l'hébergement gratuit;type: tech, domaine: infra, taille: M
+20;M1 · Fondations;2026-11-22;haute;L;Script d'import du SRD rejouable et versionné;type: feature, domaine: srd, priorité: haute, taille: L
+21;M1 · Fondations;2026-11-22;;M;Analyseur de notation de dés;type: feature, domaine: dés, taille: M
+22;M1 · Fondations;2026-11-22;haute;M;Comptes utilisateurs : inscription, connexion, sessions sécurisées;type: feature, domaine: campagne, sécurité, priorité: haute, taille: M
+23;M1 · Fondations;2026-11-22;haute;M;Projet Kotlin Multiplatform initial (Android);type: tech, domaine: mobile, priorité: haute, taille: M
+24;M1 · Fondations;2026-11-22;;M;Design system web accessible (base);type: feature, domaine: identité, a11y, taille: M
+25;M2 · Personnages & cartes;2026-12-06;;S;Logs et messages d'erreur compréhensibles en développement;type: tech, domaine: infra, taille: S, good first issue
+26;M2 · Personnages & cartes;2026-12-06;;M;Évaluation des jets côté serveur avec générateur aléatoire sûr;type: feature, domaine: dés, sécurité, taille: M
+27;M2 · Personnages & cartes;2026-12-06;;M;Campagnes : création, invitation par lien ou code, rôles MJ / joueur;type: feature, domaine: campagne, sécurité, taille: M
+28;M2 · Personnages & cartes;2026-12-06;haute;L;Moteur de règles : statistiques dérivées;type: feature, domaine: règles, type: test, priorité: haute, taille: L
+29;M2 · Personnages & cartes;2026-12-06;haute;M;API du moteur de règles : brouillon de personnage → fiche calculée;type: feature, domaine: règles, domaine: personnages, type: test, priorité: haute, taille: M
+30;M2 · Personnages & cartes;2026-12-06;;M;Assistant de création web : espèce, classe, historique;type: feature, domaine: personnages, taille: M
+31;M2 · Personnages & cartes;2026-12-06;;S;Assistant : caractéristiques (achat de points, tableau standard, 4d6);type: feature, domaine: personnages, taille: S, good first issue
+32;M2 · Personnages & cartes;2026-12-06;;M;Assistant : compétences, maîtrises, équipement de départ et sorts;type: feature, domaine: personnages, domaine: règles, taille: M
+33;M2 · Personnages & cartes;2026-12-06;;M;Fiche de personnage interactive (web);type: feature, domaine: personnages, a11y, taille: M
+34;M2 · Personnages & cartes;2026-12-06;;M;CI mobile : tests et APK en artefact;type: tech, domaine: mobile, domaine: infra, taille: M
+35;M2 · Personnages & cartes;2026-12-06;haute;L;Éditeur de cartes : grille, image de fond, décor, calques;type: feature, domaine: cartes, priorité: haute, taille: L
+36;M2 · Personnages & cartes;2026-12-06;haute;M;Murs et portes (ouvertes / fermées);type: feature, domaine: cartes, priorité: haute, taille: M
+37;M2 · Personnages & cartes;2026-12-06;;M;Pions : placement et déplacement à la souris et au clavier;type: feature, domaine: cartes, a11y, taille: M
+38;M3 · Table de jeu (follow-up);2026-12-20;haute;L;Conversion des sorts et attaques du SRD vers le format d'effets;type: tech, domaine: srd, domaine: règles, priorité: haute, taille: L
+39;M3 · Table de jeu (follow-up);2026-12-20;haute;L;Ligne de vue calculée à partir des murs et portes;type: feature, domaine: vision, type: test, priorité: haute, taille: L
+40;M3 · Table de jeu (follow-up);2026-12-20;haute;L;Vue joueurs synchronisée dans une seconde fenêtre;type: feature, domaine: sync, priorité: haute, taille: L
+41;M3 · Table de jeu (follow-up);2026-12-20;;M;Filtrage serveur des informations envoyées à la vue joueurs;type: feature, domaine: sync, sécurité, type: test, taille: M
+42;M3 · Table de jeu (follow-up);2026-12-20;;M;Jets publics, privés, cachés et historique de session;type: feature, domaine: dés, domaine: sync, taille: M
+43;M3 · Table de jeu (follow-up);2026-12-20;;M;Bestiaire : recherche, filtres et fiche monstre;type: feature, domaine: bestiaire, taille: M, good first issue
+44;M3 · Table de jeu (follow-up);2026-12-20;haute;L;Résolution automatique des actions de combat;type: feature, domaine: combat, domaine: règles, type: test, priorité: haute, taille: L
+45;M3 · Table de jeu (follow-up);2026-12-20;;L;Mobile : assistant de création de personnage;type: feature, domaine: mobile, domaine: personnages, taille: L
+46;M3 · Table de jeu (follow-up);2026-12-20;;M;Gestion de campagne : notes du MJ, PNJ, lieux, quêtes;type: feature, domaine: campagne, taille: M
+47;M4 · Combat assisté & mobile;2027-01-17;;M;Probabilités d'une expression de dés;type: feature, domaine: dés, taille: M
+48;M4 · Combat assisté & mobile;2027-01-17;;L;Brouillard de guerre : révélation manuelle et automatique;type: feature, domaine: vision, taille: L
+49;M4 · Combat assisté & mobile;2027-01-17;;M;Initiative et ordre des tours;type: feature, domaine: combat, taille: M
+50;M4 · Combat assisté & mobile;2027-01-17;;M;Outil MJ « Ajouter un effet »;type: feature, domaine: combat, taille: M
+51;M4 · Combat assisté & mobile;2027-01-17;;M;Prévisualisation, modification, annulation et journal de partie;type: feature, domaine: combat, type: test, taille: M
+52;M4 · Combat assisté & mobile;2027-01-17;;M;Concentration, jets contre la mort, PV temporaires;type: feature, domaine: combat, domaine: règles, taille: M
+53;M4 · Combat assisté & mobile;2027-01-17;;L;Montée de niveau 1 → 5 pour toutes les classes du SRD;type: feature, domaine: personnages, domaine: règles, type: test, taille: L
+54;M4 · Combat assisté & mobile;2027-01-17;;M;Constructeur de rencontres et calcul de difficulté;type: feature, domaine: bestiaire, type: test, taille: M
+55;M4 · Combat assisté & mobile;2027-01-17;;M;Vie du personnage : PV, repos, emplacements, inventaire, argent, notes;type: feature, domaine: personnages, taille: M
+56;M4 · Combat assisté & mobile;2027-01-17;;M;Mesure des distances, gabarits de zone et placement de rencontre;type: feature, domaine: cartes, domaine: bestiaire, taille: M
+57;M4 · Combat assisté & mobile;2027-01-17;;L;Vue alternative textuelle de la carte et annonces lecteur d'écran;type: feature, domaine: cartes, a11y, taille: L
+58;M4 · Combat assisté & mobile;2027-01-17;;M;Documents à révéler sur la vue joueurs;type: feature, domaine: campagne, domaine: sync, taille: M
+59;M4 · Combat assisté & mobile;2027-01-17;;L;Mobile : fiche, mise à jour et lancer de dés;type: feature, domaine: mobile, domaine: dés, taille: L
+60;M4 · Combat assisté & mobile;2027-01-17;;M;Accessibilité mobile;type: feature, domaine: mobile, a11y, taille: M
+61;M4 · Combat assisté & mobile;2027-01-17;;L;Campagne de démonstration chargée automatiquement;type: feature, domaine: campagne, taille: L
+62;M5 · Qualité & soutenance;2027-01-29;;M;Export PDF de la fiche de personnage;type: feature, domaine: personnages, taille: M, good first issue
+63;M5 · Qualité & soutenance;2027-01-29;;M;Audit d'accessibilité web;type: test, a11y, taille: M
+64;M5 · Qualité & soutenance;2027-01-29;;M;Audit d'accessibilité mobile;type: test, a11y, domaine: mobile, taille: M
+65;M5 · Qualité & soutenance;2027-01-29;;S;Déclaration d'accessibilité;type: docs, a11y, taille: S
+66;M5 · Qualité & soutenance;2027-01-29;;M;Documentation utilisateur : maître du jeu;type: docs, domaine: campagne, taille: M
+67;M5 · Qualité & soutenance;2027-01-29;;M;Documentation utilisateur : joueur et application mobile;type: docs, domaine: personnages, taille: M
+68;M5 · Qualité & soutenance;2027-01-29;;S;Aide-mémoire de la notation des dés et FAQ;type: docs, domaine: dés, taille: S, good first issue
+69;M5 · Qualité & soutenance;2027-01-29;;M;Relecture finale de la documentation technique;type: docs, taille: M
+70;M5 · Qualité & soutenance;2027-01-29;;M;Test du nouvel arrivant et guide de prise en main;type: test, domaine: infra, taille: M
+71;M5 · Qualité & soutenance;2027-01-29;;M;Revue sécurité (OWASP Top 10);type: test, sécurité, taille: M
+72;M5 · Qualité & soutenance;2027-01-29;;S;Mesures de performance documentées;type: docs, domaine: sync, domaine: vision, taille: S
+73;M5 · Qualité & soutenance;2027-01-29;;S;Release v1.0.0;type: orga, domaine: infra, taille: S
+74;M5 · Qualité & soutenance;2027-01-29;;M;Préparer et répéter la soutenance;type: orga, taille: M
+75;Bonus;;;M;[Bonus] Niveaux 6 à 20;type: feature, bonus
+76;Bonus;;;M;[Bonus] Sources de lumière et vision dans le noir;type: feature, bonus
+77;Bonus;;;M;[Bonus] Jets lancés depuis le mobile affichés sur la vue joueurs;type: feature, bonus
+78;Bonus;;;M;[Bonus] Import de cartes au format Universal VTT;type: feature, bonus
+79;Bonus;;;M;[Bonus] Ambiance sonore;type: feature, bonus
