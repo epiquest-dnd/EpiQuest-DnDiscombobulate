@@ -1,0 +1,47 @@
+# Secrets et configuration locale
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.jks
+*.keystore
+local.properties
+
+# Dépendances
+node_modules/
+.pnpm-store/
+.venv/
+__pycache__/
+
+# Builds
+build/
+dist/
+out/
+target/
+.next/
+.nuxt/
+.svelte-kit/
+.gradle/
+.kotlin/
+*.apk
+*.aab
+
+# Tests et couverture
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Journaux et temporaires
+*.log
+*.tmp
+tmp/
+
+# Éditeurs et système
+.idea/
+.vscode/
+*.iml
+*.swp
+.DS_Store
+Thumbs.db
