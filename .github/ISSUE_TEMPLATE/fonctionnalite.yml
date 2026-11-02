@@ -1,0 +1,33 @@
+name: Fonctionnalité
+description: Proposer une nouvelle fonctionnalité ou une évolution
+labels: ["type: feature"]
+body:
+  - type: markdown
+    attributes:
+      value: Pense à ajouter le domaine, la taille et le milestone après la création.
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Contexte
+      description: Le besoin, pour qui, et la section du sujet concernée si elle existe.
+    validations:
+      required: true
+  - type: textarea
+    id: proposition
+    attributes:
+      label: Proposition
+      description: Ce qu'on veut obtenir, sans forcément détailler la solution technique.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptation
+    attributes:
+      label: Critères d'acceptation
+      value: "- [ ] "
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Dépendances et notes
+      description: Issues liées, risques, impact sur l'accessibilité.
