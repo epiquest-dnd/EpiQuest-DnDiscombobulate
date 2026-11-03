@@ -14,5 +14,6 @@ Chaque rubrique est écrite au fil des issues par la personne qui code la partie
 | Cartes et vision | `cartes-et-vision.md` | À créer (M2-M3) |
 | Synchronisation des vues | `synchronisation.md` | À créer (M3) |
 | Application mobile | `mobile.md` | À créer (M1) |
+| Accessibilité (objectifs, outils, audit) | [accessibilite.md](accessibilite.md) | v1 |
 | Exploitation (CI/CD, perf, audit a11y) | `exploitation.md` | À créer (M1, complété en M5) |
 | Guide de prise en main | `prise-en-main.md` | À créer (M5) |
