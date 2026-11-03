@@ -59,6 +59,7 @@ Justification :
 
 **Architecture sur le VPS**
 
+- Système : **Fedora Server**, avec Docker Engine installé depuis le dépôt officiel de Docker.
 - Docker Compose avec trois conteneurs :
   - `server` : le serveur Express, qui sert aussi les fichiers du site Vue ;
   - `db` : PostgreSQL, sur un volume persistant, **jamais exposé à Internet** ;
@@ -82,8 +83,10 @@ Les secrets (clé SSH de déploiement, mots de passe, variables d'environnement)
 **Sécurité**
 
 - SSH par clé uniquement, connexion root et mot de passe désactivés.
-- Pare-feu : seuls les ports 22, 80 et 443 sont ouverts.
-- Mises à jour de sécurité automatiques du système.
+- Pare-feu `firewalld` : seuls les ports 22, 80 et 443 sont ouverts. Docker écrit ses propres règles de pare-feu : les ports des conteneurs ne sont publiés que pour Caddy, PostgreSQL n'en publie aucun.
+- SELinux reste en mode `enforcing` : les volumes montés dans les conteneurs portent l'option `:Z`.
+- Mises à jour de sécurité automatiques avec `dnf-automatic`.
+- Fedora sort une version tous les six mois environ, chacune étant maintenue à peu près 13 mois : la version installée couvre la durée du projet, sans montée de version.
 - Images Docker mises à jour par Dependabot.
 
 **Sauvegardes**
@@ -94,14 +97,14 @@ Les secrets (clé SSH de déploiement, mots de passe, variables d'environnement)
 **Ce que la décision rend plus difficile, les dettes acceptées**
 
 - L'exploitation est à notre charge : mises à jour, surveillance, renouvellement, incidents. Elle est documentée dans un guide d'exploitation.
-- Coût d'environ 4,57 € TTC par mois (prix « à partir de » affiché par OVH ; le prix sans engagement peut être un peu plus élevé), payé par un membre de l'équipe.
-- **Sans engagement**, à la facturation mensuelle : le projet dure environ trois mois, et on peut résilier ou changer d'offre (passage au VPS-2) à tout moment.
+- Coût d'environ 4,57 € TTC par mois (prix « à partir de » affiché par OVH), payé par un membre de l'équipe.
+- **Engagement de 6 mois** : il couvre le projet jusqu'à la soutenance (fin janvier 2027) avec de la marge. En contrepartie, passer au VPS-2 en cours de route dépendra des conditions d'OVH pour changer d'offre pendant l'engagement.
 - Disque de 40 Go : les anciennes images Docker sont supprimées après chaque déploiement, et les sauvegardes locales sont limitées aux derniers jours.
 - Une seule machine : si le VPS tombe, le produit est indisponible. La version locale Docker sert de secours.
 
 **À faire ou à vérifier**
 
-- À la commande : choix d'un datacenter en Europe, en France de préférence. Noter dans le guide d'exploitation le prix mensuel réellement facturé sans engagement.
+- À la commande : choix d'un datacenter en Europe, en France de préférence. Noter dans le guide d'exploitation le prix mensuel réellement facturé et la date de fin d'engagement.
 - Mémoire et processeur : surveillés pendant la mesure des performances sur une carte chargée. Passage au VPS-2 si la machine sature.
 - Nom de domaine pour le HTTPS : à choisir (offre gratuite d'un an du Student Pack GitHub, ou un `.fr` payant). L'URL du produit est ensuite ajoutée au README.
 - Surveillance minimale : une sonde de disponibilité externe qui prévient l'équipe si le site ne répond plus.
