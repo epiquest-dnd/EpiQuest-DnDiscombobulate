@@ -40,7 +40,7 @@ Conformément à la charte IA du groupe IONIS, cette section déclare les outils
 
 | Outil | Usage |
 |---|---|
-| Claude Code | Documentation : rédaction des fichiers du dépôt et des modèles de contribution |
+| Claude Code | Documentation : rédaction des fichiers du dépôt, des modèles de contribution et des ADR ; comparatif des API du SRD (Open5e, D&D 5e API) |
 
 ## Licence
 
