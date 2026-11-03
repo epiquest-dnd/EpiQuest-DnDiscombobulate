@@ -1,6 +1,6 @@
-# Architecture (brouillon v1)
+# Architecture (v1)
 
-> Ce schéma est **indépendant de la stack** ; il sera complété une fois ADR-0004 et 0005 acceptées.
+> Schéma complété avec la stack retenue à l'atelier d'architecture du 2026-11-03 (ADR-0004 à 0007). Les décisions et leurs justifications sont dans les [ADR](adr/).
 
 ## 1. Composants
 
@@ -8,28 +8,33 @@
 flowchart LR
     subgraph Clients
         MJ["Vue MJ<br/>(navigateur, écran du MJ)"]
-        VJ["Vue joueurs<br/>(2e fenêtre : écran, TV, projecteur)"]
-        WEB["Web : comptes, campagnes,<br/>assistant, fiche, éditeur de cartes"]
-        MOB["Application mobile<br/>Kotlin Multiplatform (Android)"]
+        VJ["Vue de table<br/>(2e fenêtre : écran, TV, projecteur)"]
+        WEB["Web : comptes, campagnes,<br/>assistant, fiche, éditeur de cartes<br/>Vue + PrimeVue, cartes PixiJS"]
+        MOB["Application mobile<br/>Kotlin Multiplatform (Android)<br/>client Ktor"]
     end
 
-    subgraph Serveur["Serveur (fait autorité)"]
-        API["API"]
-        RT["Temps réel<br/>+ projections par destinataire"]
-        ENG["Moteur de règles<br/>(stats, validation, combat)"]
-        DICE["Moteur de dés<br/>(RNG sûr)"]
-        VIS["Vision<br/>(ligne de vue, brouillard)"]
-        AUTH["Authentification<br/>et permissions"]
+    subgraph VPS["VPS OVH (Docker Compose)"]
+        CADDY["Caddy<br/>HTTPS, reverse proxy"]
+        subgraph Serveur["Serveur Node.js (fait autorité)"]
+            API["API HTTP<br/>Express"]
+            RT["Temps réel<br/>WebSocket ws<br/>+ projections par destinataire"]
+            ENG["Moteur de règles<br/>(stats, validation, combat)"]
+            DICE["Moteur de dés<br/>(RNG sûr)"]
+            VIS["Vision<br/>(ligne de vue, brouillard)"]
+            AUTH["Authentification<br/>et permissions"]
+        end
+        DB[("PostgreSQL<br/>règles + parties<br/>accès Drizzle")]
     end
 
-    DB[("Base de données<br/>règles + parties")]
-    IMP["Import SRD<br/>(rejouable, versionné)"]
-    SRC["Source publique SRD<br/>(utilisée à l'import seulement)"]
+    IMP["Script d'import SRD<br/>(rejouable, cache versionné)"]
+    SRC["API Open5e v2<br/>SRD 5.2 (import seulement)"]
 
-    WEB --> API
-    MOB --> API
-    MJ <--> RT
-    VJ <-- "projection filtrée" --> RT
+    WEB --> CADDY
+    MOB --> CADDY
+    MJ <--> CADDY
+    VJ <-- "projection filtrée" --> CADDY
+    CADDY --> API
+    CADDY <--> RT
     API --> AUTH
     RT --> AUTH
     API --> ENG
@@ -43,6 +48,10 @@ flowchart LR
 ```
 
 Le moteur de règles n'existe **que sur le serveur** (ADR-0003). Le web et le mobile ne contiennent aucune règle : ils envoient les choix de l'utilisateur et affichent le résultat calculé.
+
+Le serveur ne renvoie pas de phrases mais des **codes** avec leurs paramètres ; le web (vue-i18n) et le mobile les traduisent (ADR-0004). Le produit est en anglais, prêt pour d'autres langues.
+
+Le canal de chaque connexion temps réel (MJ, joueur, vue de table) est déterminé **par le serveur, d'après la session**. La projection est filtrée avant l'envoi : la vue de table ne reçoit jamais d'information cachée (ADR-0005).
 
 ## 2. Flux : création d'un personnage (web ou mobile)
 
@@ -68,7 +77,7 @@ sequenceDiagram
     participant MJ as Vue MJ
     participant S as Serveur
     participant E as Moteur de règles
-    participant VJ as Vue joueurs
+    participant VJ as Vue de table
     MJ->>S: intention (lancer Boule de feu, gabarit en (x,y))
     S->>E: résoudre (sans appliquer)
     E-->>S: prévisualisation (cibles, jets, dégâts)
@@ -76,29 +85,77 @@ sequenceDiagram
     MJ->>S: ajuster / ajouter un effet / confirmer
     S->>E: appliquer
     S->>S: journaliser (annulable)
-    S-->>MJ: nouvel état complet
-    S-->>VJ: nouvel état filtré (PV approximatifs, zones visibles)
+    S->>S: recalculer la projection de chaque destinataire
+    S-->>MJ: patch JSON (projection MJ, version n)
+    S-->>VJ: patch JSON (projection filtrée : PV approximatifs, zones visibles)
+    Note over VJ: version manquante ou patch en échec : demande un instantané
 ```
 
-## 4. Choix de stack
+## 4. Flux : import du SRD
 
-_Renvoyer vers ADR-0003 (moteur), ADR-0004 (serveur, web, base), ADR-0005 (temps réel), ADR-0007 (hébergement), ADR-0002 (mobile)._
+```mermaid
+sequenceDiagram
+    participant I as Script d'import
+    participant O as API Open5e v2
+    participant C as Cache versionné
+    participant DB as PostgreSQL
+    I->>O: ressources filtrées (document__key=srd-2024), page par page
+    O-->>I: réponses brutes
+    I->>C: enregistrer (date de l'appel)
+    I->>I: refuser toute entrée hors srd-2024
+    I->>DB: insérer ou mettre à jour (idempotent)
+    I->>DB: enregistrer l'exécution (import_version)
+    Note over I,C: un nouvel import peut repartir du cache, sans rappeler l'API
+```
 
-## 5. Arborescence du dépôt
+## 5. Déploiement
 
-_À compléter en M1 (issue « Initialiser le monorepo »)._ Proposition indicative :
+```mermaid
+flowchart LR
+    DEV["Merge sur main"] --> CI["GitHub Actions<br/>lint, tests, build"]
+    CI --> IMG["Image Docker<br/>publiée sur GHCR"]
+    CI --> APK["APK Android<br/>artefact du pipeline"]
+    IMG --> SSH["Connexion SSH<br/>au VPS"]
+    SSH --> UP["docker compose pull + up -d<br/>migrations Drizzle<br/>réinitialisation de la démo"]
+```
+
+Le même fichier Docker Compose sert en local : c'est la version de secours si le VPS est indisponible le jour de la soutenance (ADR-0007).
+
+## 6. Choix de stack
+
+| Couche | Choix | ADR |
+|---|---|---|
+| Langage serveur et web | TypeScript | [ADR-0004](adr/0004-stack-serveur-web-bdd.md) |
+| Serveur HTTP | Express | [ADR-0004](adr/0004-stack-serveur-web-bdd.md) |
+| Moteur de règles | Module TypeScript isolé, exécuté sur le serveur uniquement | [ADR-0003](adr/0003-emplacement-moteur-de-regles.md) |
+| Web | Vue + PrimeVue, i18n avec vue-i18n | [ADR-0004](adr/0004-stack-serveur-web-bdd.md) |
+| Rendu des cartes | PixiJS (WebGL), plus une vue textuelle HTML | [ADR-0004](adr/0004-stack-serveur-web-bdd.md) |
+| Base de données | PostgreSQL (JSONB pour les données de règles), accès par Drizzle | [ADR-0004](adr/0004-stack-serveur-web-bdd.md) |
+| Temps réel | WebSocket (`ws`), diffs de projection en JSON Patch (`fast-json-patch`) | [ADR-0005](adr/0005-synchronisation-temps-reel.md) |
+| Données de règles | SRD 5.2, importé depuis l'API v2 d'Open5e | [ADR-0006](adr/0006-import-srd.md) |
+| Mobile | Kotlin Multiplatform, cible Android, client HTTP et WebSocket Ktor | [ADR-0002](adr/0002-mobile-kotlin-multiplatform.md) |
+| Hébergement | VPS OVH VPS-1, Docker Compose, Caddy (HTTPS) | [ADR-0007](adr/0007-hebergement-deploiement.md) |
+| Déploiement continu | GitHub Actions, images sur GHCR, déploiement par SSH | [ADR-0007](adr/0007-hebergement-deploiement.md) |
+
+## 7. Arborescence du dépôt
+
+_À confirmer en M1 (issue #15, « Initialiser le monorepo »)._ Proposition :
 
 ```
 /
 ├── apps/
-│   ├── server/        API, temps réel, moteur de règles, dés, vision
-│   ├── web/           vue MJ, vue joueurs, pages web
-│   └── mobile/        projet Kotlin Multiplatform
-├── packages/          types et contrats d'API partagés éventuels
-├── data/              données SRD figées, campagne de démo
+│   ├── server/        Express : API, temps réel, moteur de règles, dés, vision
+│   ├── web/           Vue : vue MJ, vue de table, pages web
+│   └── mobile/        projet Kotlin Multiplatform (module shared + app Android)
+├── packages/
+│   └── shared/        types TypeScript partagés : messages temps réel, contrats d'API, codes d'erreur
+├── data/
+│   ├── srd-cache/     réponses brutes de l'API Open5e, versionnées
+│   └── demo/          campagne de démonstration
 ├── scripts/           import SRD, installation
 ├── docs/
 ├── .github/           workflows, modèles d'issue et de PR
-├── docker-compose.yml
+├── docker-compose.yml serveur, PostgreSQL, Caddy
+├── Caddyfile
 └── README.md
 ```
