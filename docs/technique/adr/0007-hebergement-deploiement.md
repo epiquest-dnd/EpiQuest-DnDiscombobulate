@@ -64,6 +64,26 @@ Justification :
   - `server` : le serveur Express, qui sert aussi les fichiers du site Vue ;
   - `db` : PostgreSQL, sur un volume persistant, **jamais exposé à Internet** ;
   - `caddy` : reverse proxy qui obtient et renouvelle automatiquement les certificats HTTPS et transmet le WebSocket (ADR-0005).
+
+**HTTPS sans nom de domaine**
+
+- Le produit est servi directement sur l'adresse IP du VPS : `https://159.173.138.75`. L'URL est ajoutée au README.
+- Caddy demande à Let's Encrypt un **certificat pour l'adresse IP**, avec le profil ACME `shortlived` (certificats de 6 jours, seuls autorisés pour une IP). Testé sur le VPS le 2026-11-03 avec l'environnement de test de Let's Encrypt : certificat obtenu.
+- Configuration Caddy :
+
+  ```
+  159.173.138.75 {
+  	tls {
+  		issuer acme {
+  			profile shortlived
+  		}
+  	}
+  	reverse_proxy server:3000
+  }
+  ```
+
+- Caddy renouvelle le certificat tout seul, plusieurs fois par semaine. Si Let's Encrypt était indisponible plusieurs jours, le certificat pourrait expirer : surveiller les journaux de Caddy.
+- Si l'équipe prend un nom de domaine plus tard, il suffit de remplacer l'IP par ce nom dans le Caddyfile.
 - Le même fichier Compose sert en local, ce qui donne la version de secours pour la soutenance.
 
 **Déploiement continu**
@@ -106,5 +126,4 @@ Les secrets (clé SSH de déploiement, mots de passe, variables d'environnement)
 
 - À la commande : choix d'un datacenter en Europe, en France de préférence. Noter dans le guide d'exploitation le prix mensuel réellement facturé et la date de fin d'engagement.
 - Mémoire et processeur : surveillés pendant la mesure des performances sur une carte chargée. Passage au VPS-2 si la machine sature.
-- Nom de domaine pour le HTTPS : à choisir (offre gratuite d'un an du Student Pack GitHub, ou un `.fr` payant). L'URL du produit est ensuite ajoutée au README.
 - Surveillance minimale : une sonde de disponibilité externe qui prévient l'équipe si le site ne répond plus.
