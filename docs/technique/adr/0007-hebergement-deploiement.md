@@ -64,6 +64,7 @@ Justification :
   - `server` : le serveur Express, qui sert aussi les fichiers du site Vue ;
   - `db` : PostgreSQL, sur un volume persistant, **jamais exposé à Internet** ;
   - `caddy` : reverse proxy qui obtient et renouvelle automatiquement les certificats HTTPS et transmet le WebSocket (ADR-0005).
+- Le même fichier Compose sert en local, ce qui donne la version de secours pour la soutenance.
 
 **HTTPS sans nom de domaine**
 
@@ -84,7 +85,6 @@ Justification :
 
 - Caddy renouvelle le certificat tout seul, plusieurs fois par semaine. Si Let's Encrypt était indisponible plusieurs jours, le certificat pourrait expirer : surveiller les journaux de Caddy.
 - Si l'équipe prend un nom de domaine plus tard, il suffit de remplacer l'IP par ce nom dans le Caddyfile.
-- Le même fichier Compose sert en local, ce qui donne la version de secours pour la soutenance.
 
 **Déploiement continu**
 
