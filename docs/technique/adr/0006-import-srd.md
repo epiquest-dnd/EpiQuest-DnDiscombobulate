@@ -76,9 +76,11 @@ Justification :
 
 **Attribution**
 
-- Garder dans `ATTRIBUTION.md` la seule mention du SRD 5.2, mot pour mot, puis l'afficher dans la page « À propos / Crédits ». Open5e nomme le document « 5.2 », alors que la mention actuelle de `ATTRIBUTION.md` est celle du 5.2.1 : vérifier quelle version Open5e a transcrite avant de recopier la mention.
+- Les données `srd-2024` d'Open5e ont été importées depuis le SRD 5.2, puis sont corrigées au fil de l'eau d'après le SRD 5.2.1, qu'Open5e prend comme référence (fichier `data/raw_sources/srd_5_2/README.md` de leur dépôt, vérifié le 2026-11-03). Nos données contiennent donc du contenu des deux versions.
+- `ATTRIBUTION.md` reprend **les deux mentions** (SRD 5.2 et SRD 5.2.1), mot pour mot, telles qu'elles figurent en première page des PDF officiels. La page « À propos / Crédits » du produit les affiche aussi, avec un lien vers Open5e.
 
 **À surveiller**
 
 - Structure des actions de monstres chez Open5e : 390 actions avec attaque structurée sur 989, contre 440 sur 838 dans la D&D 5e API. À mesurer avant le bestiaire (M3).
+- Erreurs connues des données Open5e, à suivre avant l'import des monstres et des objets : dégâts des attaques de créatures manquants ou faux (ticket open5e/open5e-api#1004, ouvert), 15 objets magiques du SRD 5.2.1 absents (open5e/open5e-api#1014, ouvert). Le statut de relecture `review` du format des règles sert à ne pas utiliser ces données sans vérification.
 - Open5e compte chaque variante d'objet à part (une ligne par type d'armure adamantine, par exemple) : à regrouper ou non lors de l'import.
