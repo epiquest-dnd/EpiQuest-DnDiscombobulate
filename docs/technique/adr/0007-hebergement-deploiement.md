@@ -124,6 +124,6 @@ Les secrets (clé SSH de déploiement, mots de passe, variables d'environnement)
 
 **À faire ou à vérifier**
 
-- À la commande : choix d'un datacenter en Europe, en France de préférence. Noter dans le guide d'exploitation le prix mensuel réellement facturé et la date de fin d'engagement.
+- À la commande : choix d'un datacenter en Europe, en France de préférence. Noter dans le guide d'exploitation la date de fin d'engagement.
 - Mémoire et processeur : surveillés pendant la mesure des performances sur une carte chargée. Passage au VPS-2 si la machine sature.
 - Surveillance minimale : une sonde de disponibilité externe qui prévient l'équipe si le site ne répond plus.
