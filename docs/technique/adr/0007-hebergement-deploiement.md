@@ -1,12 +1,13 @@
 # ADR-0007 : Hébergement et déploiement continu
 
-- **Statut** : Proposée — après ADR-0004
-- **Date** : 2026-11-02
-- **Décideurs** : toute l'équipe
+- **Statut** : Acceptée
+- **Date** : 2026-11-03
+- **Décideurs** : toute l'équipe (atelier d'architecture du 2026-11-03)
+- **Issue** : #7
 
 ## Contexte
 
-- Chaque merge sur `main` met à jour automatiquement le produit en ligne, avec la campagne de démonstration (§03-B). Offre d'hébergement gratuite au choix.
+- Chaque merge sur `main` met à jour automatiquement le produit en ligne, avec la campagne de démonstration (§03-B). Le sujet propose une offre d'hébergement gratuite au choix ; l'équipe accepte un petit coût mensuel pour un service plus fiable.
 - Chaque merge produit un APK disponible en artefact du pipeline.
 - Les secrets sont dans les GitHub Secrets, jamais dans le code.
 - L'URL est dans le README.
@@ -29,12 +30,77 @@
 
 ## Options
 
-_Lister 2 ou 3 hébergeurs après vérification des offres actuelles (serveur, base, web), avec leurs limites._
+Offres vérifiées le 2026-11-03 sur les pages des hébergeurs. Prix mensuels.
+
+| Option | Prix | ➕ | ➖ |
+|---|---|---|---|
+| Render (gratuit) + Neon (gratuit) | 0 € | Aucune administration, déploiement depuis GitHub | Serveur mis en veille après 15 min sans trafic, environ 1 min de réveil |
+| Render Starter + Neon (gratuit) | ~7 $ | Toujours allumé, aucune administration | Base mise en veille après 5 min ; offres Render modifiées plusieurs fois en 2026 |
+| Heroku Basic + Essential-0 | 12 $ (couvert par le Student Pack GitHub) | Toujours allumé, tout au même endroit | Dépend d'un Student Pack validé ; base de 1 Go et 20 connexions |
+| Hetzner CX23 (VPS) | 5,99 € HT | 2 vCPU, 4 Go | Offres économiques indisponibles à la commande |
+| **OVH VPS-1** | **3,81 € HT (4,57 € TTC)** | 2 vCores, 4 Go, 40 Go NVMe, trafic illimité (500 Mbit/s), sauvegarde quotidienne des dernières 24 h | Exploitation à notre charge ; disque de 40 Go à surveiller |
+| OVH VPS-2 | 7,21 € HT (8,65 € TTC) | 4 vCores, 8 Go, 75 Go NVMe | Indisponible en Europe à la date de la décision |
+
+Écartés : Koyeb (offre gratuite retirée aux nouveaux comptes), Fly.io (plus d'offre gratuite), Railway (1 $ d'usage par mois après l'essai), base gratuite de Render (supprimée après 30 jours).
 
 ## Décision
 
-_À compléter._
+**Un VPS OVH VPS-1, avec Docker Compose, et un déploiement continu par GitHub Actions.**
+
+Justification :
+
+- **Toujours allumé** : pas de mise en veille, donc des démos et une soutenance fiables.
+- **Assez pour le projet** : 2 vCores et 4 Go de RAM suffisent pour le serveur, PostgreSQL et le reverse proxy sur la même machine. Le VPS-2, plus confortable, n'était pas disponible en Europe ; on pourra y passer plus tard si les mesures de performance le demandent.
+- **Prix fixe et prévisible**, sans facturation à l'usage.
+- **Une seule machine** pour tout, identique à l'environnement local Docker prévu en cas de panne le jour de la soutenance.
+- La sauvegarde quotidienne est incluse dans l'offre.
 
 ## Conséquences
 
-_À compléter._
+**Architecture sur le VPS**
+
+- Docker Compose avec trois conteneurs :
+  - `server` : le serveur Express, qui sert aussi les fichiers du site Vue ;
+  - `db` : PostgreSQL, sur un volume persistant, **jamais exposé à Internet** ;
+  - `caddy` : reverse proxy qui obtient et renouvelle automatiquement les certificats HTTPS et transmet le WebSocket (ADR-0005).
+- Le même fichier Compose sert en local, ce qui donne la version de secours pour la soutenance.
+
+**Déploiement continu**
+
+À chaque merge sur `main`, une fois la CI verte, GitHub Actions :
+
+1. construit l'image Docker du serveur et la publie sur le registre de GitHub (GHCR), avec le SHA du commit comme étiquette ;
+2. se connecte au VPS en SSH avec un utilisateur dédié au déploiement ;
+3. lance `docker compose pull` puis `docker compose up -d` ;
+4. applique les migrations Drizzle ;
+5. réinitialise la campagne de démonstration.
+
+L'APK est produit par le même pipeline et publié en artefact.
+
+Les secrets (clé SSH de déploiement, mots de passe, variables d'environnement) sont dans les GitHub Secrets et dans un fichier `.env` sur le VPS, jamais dans le dépôt.
+
+**Sécurité**
+
+- SSH par clé uniquement, connexion root et mot de passe désactivés.
+- Pare-feu : seuls les ports 22, 80 et 443 sont ouverts.
+- Mises à jour de sécurité automatiques du système.
+- Images Docker mises à jour par Dependabot.
+
+**Sauvegardes**
+
+- En plus de la sauvegarde quotidienne d'OVH, un `pg_dump` chaque nuit, copié **hors du VPS**.
+- Une restauration est testée au moins une fois avant la soutenance, puis la procédure est documentée.
+
+**Ce que la décision rend plus difficile, les dettes acceptées**
+
+- L'exploitation est à notre charge : mises à jour, surveillance, renouvellement, incidents. Elle est documentée dans un guide d'exploitation.
+- Coût d'environ 4,57 € TTC par mois, payé par un membre de l'équipe.
+- Disque de 40 Go : les anciennes images Docker sont supprimées après chaque déploiement, et les sauvegardes locales sont limitées aux derniers jours.
+- Une seule machine : si le VPS tombe, le produit est indisponible. La version locale Docker sert de secours.
+
+**À faire ou à vérifier**
+
+- À la commande : durée d'engagement (le prix affiché est un prix « à partir de ») et choix d'un datacenter en Europe, en France de préférence.
+- Mémoire et processeur : surveillés pendant la mesure des performances sur une carte chargée. Passage au VPS-2 si la machine sature.
+- Nom de domaine pour le HTTPS : à choisir (offre gratuite d'un an du Student Pack GitHub, ou un `.fr` payant). L'URL du produit est ensuite ajoutée au README.
+- Surveillance minimale : une sonde de disponibilité externe qui prévient l'équipe si le site ne répond plus.
