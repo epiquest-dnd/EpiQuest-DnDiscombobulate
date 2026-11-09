@@ -1,0 +1,28 @@
+{
+  "name": "epiquest",
+  "private": true,
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "packageManager": "npm@10.9.7",
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0"
+  },
+  "workspaces": [
+    "packages/shared",
+    "packages/rules-engine",
+    "apps/server",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace @epiquest/server",
+    "dev:web": "npm run dev --workspace @epiquest/web",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run typecheck && vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
+  }
+}
