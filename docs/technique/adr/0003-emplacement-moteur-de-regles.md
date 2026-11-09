@@ -3,6 +3,7 @@
 - **Statut** : Acceptée
 - **Date** : 2026-11-02
 - **Décideurs** : toute l'équipe
+- **Issue** : #3
 
 ## Contexte
 
@@ -31,7 +32,7 @@ Le moteur est un module Kotlin commun, compilé pour la JVM (serveur), Android (
 - ➕ Une seule implémentation exécutée partout, y compris hors ligne sur le mobile.
 - ➕ Serveur et mobile dans le même langage (serveur Kotlin : Ktor ou Spring Boot).
 - ➖ Impose un serveur JVM/Kotlin.
-- ➖ L'interop Kotlin/JS avec un front TypeScript/React demande de l'outillage (export `@JsExport`, types générés) : à prototyper avant de s'engager.
+- ➖ L'interop Kotlin/JS avec un front TypeScript demande de l'outillage (export `@JsExport`, types générés) : à prototyper avant de s'engager.
 - ⚠️ Ne **pas** faire l'interface web en Compose for Web / Wasm : le rendu dans un canvas pose de gros problèmes d'accessibilité (lecteurs d'écran, zoom).
 
 ### Option 2 : moteur uniquement côté serveur, exposé par l'API
@@ -64,14 +65,14 @@ Justification :
 
 - Une seule implémentation à écrire, tester et documenter.
 - L'autorité du serveur (§03-B) est garantie par construction : aucun calcul de règles n'est fait côté client.
-- Le langage du moteur est celui du serveur, ce qui laisse ADR-0004 libre.
+- Le langage du moteur est celui du serveur, ce qui laissait ADR-0004 libre. Le serveur est finalement en TypeScript (ADR-0004) : le moteur est donc écrit en TypeScript.
 - Le mobile n'a pas besoin de fonctionner hors ligne (non exigé par le sujet).
 
 ## Conséquences
 
 **Conception de l'API du moteur**
 
-- Pour la création et l'évolution d'un personnage, le client envoie le **brouillon complet** (tous les choix faits jusque-là) et reçoit en une réponse la **fiche calculée**, les **erreurs de validation** (rattachées à un champ, avec un message lisible) et les **choix encore possibles** (compétences sélectionnables, sorts autorisés…). Le client n'a aucune règle à connaître.
+- Pour la création et l'évolution d'un personnage, le client envoie le **brouillon complet** (tous les choix faits jusque-là) et reçoit en une réponse la **fiche calculée**, les **erreurs de validation** (rattachées à un champ, sous forme de code de message et de paramètres que le client traduit, voir ADR-0004) et les **choix encore possibles** (compétences sélectionnables, sorts autorisés…). Le client n'a aucune règle à connaître.
 - Les clients ne recalculent rien : pour éviter un appel à chaque frappe, ils regroupent les changements (anti-rebond de quelques centaines de millisecondes) et affichent un état « calcul en cours » annoncé aux lecteurs d'écran.
 - Les mêmes points d'API servent au web et au mobile ; ils sont documentés (OpenAPI ou équivalent) et testés.
 - Le combat suit le même principe : intention envoyée, prévisualisation calculée, application confirmée (voir architecture.md).
@@ -83,5 +84,5 @@ Justification :
 
 **À surveiller**
 
-- Temps de réponse de l'API du moteur sur l'hébergement gratuit (mise en veille, latence) : à mesurer avec les autres performances.
+- Temps de réponse de l'API du moteur sur le VPS de production (ADR-0007), réseau mobile compris : à mesurer avec les autres performances.
 - Sans réseau, le mobile ne peut ni créer ni modifier un personnage : afficher un message clair dans ce cas.
