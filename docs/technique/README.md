@@ -16,4 +16,4 @@ Chaque rubrique est écrite au fil des issues par la personne qui code la partie
 | Application mobile | `mobile.md` | À créer (M1) |
 | Accessibilité (objectifs, outils, audit) | [accessibilite.md](accessibilite.md) | v1 |
 | Exploitation (CI/CD, perf, audit a11y) | [exploitation.md](exploitation.md) | Serveur configuré ; déploiement continu et sauvegardes à compléter (#19), mesures en M5 |
-| Guide de prise en main | `prise-en-main.md` | À créer (M5) |
+| Guide de prise en main | [prise-en-main.md](prise-en-main.md) | Installation, tests et arborescence ; complété au fil des milestones |

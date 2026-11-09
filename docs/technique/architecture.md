@@ -139,23 +139,28 @@ Le même fichier Docker Compose sert en local : c'est la version de secours si l
 
 ## 7. Arborescence du dépôt
 
-_À confirmer en M1 (issue #15, « Initialiser le monorepo »)._ Proposition :
+Monorepo avec les workspaces npm (issue #15). Le détail des commandes est dans le [guide de prise en main](prise-en-main.md).
 
 ```
 /
 ├── apps/
-│   ├── server/        Express : API, temps réel, moteur de règles, dés, vision
-│   ├── web/           Vue : vue MJ, vue de table, pages web
-│   └── mobile/        projet Kotlin Multiplatform (module shared + app Android)
+│   ├── server/          Express : API, temps réel, dés, vision (importe le moteur)
+│   ├── web/             Vue : vue MJ, vue de table, pages web
+│   └── mobile/          projet Kotlin Multiplatform, module shared + app Android (#23)
 ├── packages/
-│   └── shared/        types TypeScript partagés : messages temps réel, contrats d'API, codes d'erreur
+│   ├── rules-engine/    moteur de règles isolé : ni Express ni Drizzle (ADR-0003)
+│   └── shared/          types TypeScript partagés : messages, contrats d'API, codes
 ├── data/
-│   ├── srd-cache/     réponses brutes de l'API Open5e, versionnées
-│   └── demo/          campagne de démonstration
-├── scripts/           import SRD, installation
+│   ├── srd-cache/       réponses brutes de l'API Open5e, versionnées (#20)
+│   └── demo/            campagne de démonstration
+├── scripts/             import SRD, installation
 ├── docs/
-├── .github/           workflows, modèles d'issue et de PR
-├── docker-compose.yml serveur, PostgreSQL, Caddy
+├── .github/             workflows, modèles d'issue et de PR
+├── docker-compose.yml   serveur, PostgreSQL, Caddy (#18)
 ├── Caddyfile
 └── README.md
 ```
+
+Seuls `apps/server`, `apps/web` et les deux paquets existent pour l'instant ; les autres dossiers arrivent avec les issues indiquées.
+
+Le moteur est un paquet à part pour que son isolement soit garanti par la structure : son `package.json` ne déclare ni Express ni Drizzle, donc il ne peut pas les importer. Les paquets internes exposent directement leurs sources TypeScript : Node 22 les exécute sans compilation (suppression des types), et Vite les compile pour le web.
