@@ -24,9 +24,9 @@ Le sujet demande un journal des décisions d'architecture (contexte, options, ch
 | N° | Titre | Statut |
 |---|---|---|
 | 0001 | Consigner les décisions dans des ADR | Acceptée |
-| 0002 | Application mobile en Kotlin Multiplatform, cible Android | Acceptée (à compléter) |
+| 0002 | Application mobile en Kotlin Multiplatform, cible Android | Acceptée |
 | 0003 | Moteur de règles exécuté uniquement sur le serveur | Acceptée |
-| 0004 | Stack serveur, web et base de données | Proposée |
-| 0005 | Synchronisation temps réel des deux vues | Proposée |
-| 0006 | Source et méthode d'import du SRD | Proposée |
-| 0007 | Hébergement et déploiement continu | Proposée |
+| 0004 | Stack serveur, web et base de données | Acceptée |
+| 0005 | Synchronisation temps réel des deux vues | Acceptée |
+| 0006 | Source et méthode d'import du SRD | Acceptée |
+| 0007 | Hébergement et déploiement continu | Acceptée |
