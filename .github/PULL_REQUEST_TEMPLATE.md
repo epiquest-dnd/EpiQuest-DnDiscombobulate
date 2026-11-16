@@ -1,4 +1,4 @@
-<!-- Titre de la PR au format Conventional Commits : il devient le commit sur main. Exemple : feat(des): gérer les dés explosifs -->
+<!-- Titre de la PR au format Conventional Commits : il devient le commit sur dev. Exemple : feat(des): gérer les dés explosifs -->
 
 Closes #
 

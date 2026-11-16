@@ -68,7 +68,7 @@ Ce qui est déjà décidé ailleurs :
 
 **Ce que la décision rend plus facile**
 
-- Le build APK tourne sur un runner Linux de GitHub Actions, à chaque merge sur `main` (CI mobile prévue en M2).
+- Le build APK tourne sur un runner Linux de GitHub Actions, à chaque merge sur `dev` et sur `main` (CI mobile prévue en M2).
 - Les tests d'interface Compose activent `enableAccessibilityChecks()` (voir [accessibilite.md](../accessibilite.md)) : taille des cibles, contrastes et libellés sont vérifiés à chaque PR mobile.
 - Les composants Material 3 imposent déjà une cible minimale de 48 dp (`minimumInteractiveComponentSize`).
 
