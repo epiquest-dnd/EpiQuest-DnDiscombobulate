@@ -15,9 +15,12 @@ Toute tâche est une issue, avec un responsable, des labels (type, domaine, tail
 
 ## Branches
 
-Une seule branche durable : `main`. On ne pousse jamais directement dessus, tout passe par une pull request.
+Deux branches durables, sur lesquelles on ne pousse jamais directement :
 
-Crée ta branche depuis `main`, avec le nom `type/numero-description-courte` :
+- **`dev`** : la branche par défaut. Toutes les PR y vont.
+- **`main`** : les versions publiées. Elle ne reçoit qu'une PR de release depuis `dev` à chaque fin de milestone (voir la procédure dans [docs/projet/organisation.md](docs/projet/organisation.md#releases)).
+
+Crée ta branche depuis `dev`, avec le nom `type/numero-description-courte` :
 
 ```
 feat/21-analyseur-des
@@ -40,11 +43,11 @@ fix(vision): une porte ouverte ne bloque plus la ligne de vue
 - **Types** : `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `chore`, `ci`, `build`.
 - **Domaines** : `des`, `regles`, `srd`, `personnages`, `cartes`, `vision`, `sync`, `combat`, `bestiaire`, `campagne`, `mobile`, `ui`, `infra`, `adr`.
 
-Comme les PR sont fusionnées en squash, **le titre de la PR devient le commit sur `main`** : il doit respecter ce format lui aussi.
+Comme les PR sont fusionnées en squash, **le titre de la PR devient le commit sur `dev`** : il doit respecter ce format lui aussi.
 
 ## Pull requests
 
-1. Ouvre la PR tôt (en brouillon si besoin), reliée à l'issue avec `Closes #42`.
+1. Ouvre la PR vers `dev` tôt (en brouillon si besoin), reliée à l'issue avec `Closes #42`.
 2. Remplis le modèle de PR, y compris la case sur l'usage de l'IA.
 3. Une PR correspond à une issue, idéalement moins de 400 lignes modifiées. Au-delà, découpe.
 4. CI verte et **1 approbation** d'un autre membre, puis merge en **squash**. La branche est supprimée automatiquement.

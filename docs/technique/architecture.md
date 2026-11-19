@@ -112,12 +112,14 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-    DEV["Merge sur main"] --> CI["GitHub Actions<br/>lint, tests, build"]
+    DEV["Merge sur dev<br/>(préproduction)<br/>ou release sur main<br/>(production)"] --> CI["GitHub Actions<br/>lint, tests, build"]
     CI --> IMG["Image Docker<br/>publiée sur GHCR"]
     CI --> APK["APK Android<br/>artefact du pipeline"]
     IMG --> SSH["Connexion SSH<br/>au VPS"]
     SSH --> UP["docker compose pull + up -d<br/>migrations Drizzle<br/>réinitialisation de la démo"]
 ```
+
+`dev` déploie la préproduction et `main`, qui ne reçoit que les releases de fin de milestone, déploie la production ; les deux tournent sur le même VPS (organisation.md, § Branches).
 
 Le même fichier Docker Compose sert en local : c'est la version de secours si le VPS est indisponible le jour de la soutenance (ADR-0007).
 

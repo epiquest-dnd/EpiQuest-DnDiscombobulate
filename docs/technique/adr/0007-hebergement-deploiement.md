@@ -88,7 +88,9 @@ Justification :
 
 **Déploiement continu**
 
-À chaque merge sur `main`, une fois la CI verte, GitHub Actions :
+> **Mise à jour du 16 nov. 2026** : `main` ne reçoit plus que les releases de fin de milestone, et `dev` devient la branche d'intégration (issue #93). Le pipeline ci-dessous déploie la **production** à chaque merge sur `main` et une **préproduction** à chaque merge sur `dev`, sur le même VPS avec un port et une base séparés (issue #19).
+
+À chaque merge sur `main` (ou sur `dev` pour la préproduction), une fois la CI verte, GitHub Actions :
 
 1. construit l'image Docker du serveur et la publie sur le registre de GitHub (GHCR), avec le SHA du commit comme étiquette ;
 2. se connecte au VPS en SSH avec un utilisateur dédié au déploiement ;

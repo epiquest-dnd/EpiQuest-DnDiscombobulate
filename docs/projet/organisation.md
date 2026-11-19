@@ -53,14 +53,23 @@ Règles communes :
 ## 4. Flux de travail GitHub
 
 1. Toute tâche est une **issue** avec un responsable, des labels (type, domaine, taille) et un milestone.
-2. On passe l'issue en « En cours » dans le tableau et on crée une branche depuis `main`.
-3. On ouvre une **pull request** reliée à l'issue (`Closes #42`) dès que possible (en brouillon si besoin).
+2. On passe l'issue en « En cours » dans le tableau et on crée une branche depuis `dev`.
+3. On ouvre une **pull request vers `dev`** reliée à l'issue (`Closes #42`) dès que possible (en brouillon si besoin).
 4. CI verte + **1 approbation** d'un autre membre → merge en **squash**. La branche est supprimée.
-5. Le merge sur `main` déclenche le déploiement automatique.
+5. Le merge sur `dev` met à jour la **préproduction** ; le merge d'une release sur `main` met à jour la **production**.
 
 ### Branches
 
-Stratégie « GitHub Flow » : une seule branche durable, `main`, protégée (pas de push direct, PR obligatoire, CI obligatoire, 1 relecture).
+Deux branches durables, protégées par des rulesets (pas de push direct ni de force-push, PR obligatoire, 1 relecture, CI obligatoire dès l'issue #17) :
+
+| Branche | Rôle | Reçoit | Méthode de merge |
+|---|---|---|---|
+| `dev` | Intégration, **branche par défaut** | Les PR de toutes les tâches | Squash, historique linéaire |
+| `main` | Versions publiées, production | Uniquement les PR de release depuis `dev` | Commit de merge |
+
+`dev` est la branche par défaut pour que `Closes #42` ferme l'issue au merge et que le tableau la passe en « Terminé ».
+
+Un correctif urgent suit le même chemin : PR vers `dev`, puis release de correctif (`v0.2.1`).
 
 Nom des branches : `type/numero-description-courte`
 
@@ -70,6 +79,22 @@ fix/57-porte-bloque-vue
 docs/9-format-effets
 chore/14-ci-lint
 ```
+
+### Releases
+
+Une release complète à chaque fin de milestone (tags du §2), le jour de la démo interne :
+
+1. Toutes les PR du milestone sont mergées dans `dev` et la préproduction a été vérifiée.
+2. On ouvre une PR **`dev` → `main`** intitulée `chore(release): v0.1.0`, avec la liste des issues livrées.
+3. 1 approbation → merge en **commit de merge** (jamais en squash : `dev` et `main` divergeraient).
+4. On tague le commit de merge et on publie la GitHub Release :
+   ```bash
+   git switch main && git pull
+   git tag -a v0.1.0 -m "v0.1.0 · Fondations"
+   git push origin v0.1.0
+   gh release create v0.1.0 --generate-notes
+   ```
+5. Le merge sur `main` déploie la production.
 
 ### Commits : Conventional Commits
 
