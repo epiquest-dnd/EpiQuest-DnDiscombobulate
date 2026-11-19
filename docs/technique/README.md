@@ -7,7 +7,7 @@ Chaque rubrique est écrite au fil des issues par la personne qui code la partie
 |---|---|---|
 | Architecture | [architecture.md](architecture.md) | Brouillon |
 | Décisions (ADR) | [adr/](adr/) | 7 acceptées |
-| Modèle de données | [modele-de-donnees.md](modele-de-donnees.md) | Brouillon |
+| Modèle de données | [modele-de-donnees.md](modele-de-donnees.md) | v1, en relecture |
 | Données de règles | `donnees-de-regles.md` | À créer (M1) |
 | Moteur de règles | [format-des-regles.md](format-des-regles.md) + `moteur-de-regles.md` | Format en brouillon |
 | Dés | [des.md](des.md) | Brouillon |
