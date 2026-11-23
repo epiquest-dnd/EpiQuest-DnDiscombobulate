@@ -16,6 +16,9 @@
   "scripts": {
     "dev:server": "npm run dev --workspace @epiquest/server",
     "dev:web": "npm run dev --workspace @epiquest/web",
+    "db:up": "docker compose -f compose.dev.yaml up -d --wait db",
+    "db:generate": "npm run db:generate --workspace @epiquest/server",
+    "db:migrate": "npm run db:migrate --workspace @epiquest/server",
     "build": "npm run build --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run typecheck && vitest run",

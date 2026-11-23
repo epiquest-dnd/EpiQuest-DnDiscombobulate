@@ -146,7 +146,7 @@ Monorepo avec les workspaces npm (issue #15). Le détail des commandes est dans 
 ```
 /
 ├── apps/
-│   ├── server/          Express : API, temps réel, dés, vision (importe le moteur)
+│   ├── server/          Express : API, temps réel, dés, vision, base (Drizzle), import du SRD (importe le moteur)
 │   ├── web/             Vue : vue MJ, vue de table, pages web
 │   └── mobile/          projet Kotlin Multiplatform, module shared + app Android (#23)
 ├── packages/
@@ -155,14 +155,15 @@ Monorepo avec les workspaces npm (issue #15). Le détail des commandes est dans 
 ├── data/
 │   ├── srd-cache/       réponses brutes de l'API Open5e, versionnées (#20)
 │   └── demo/            campagne de démonstration
-├── scripts/             import SRD, installation
+├── scripts/             installation
 ├── docs/
 ├── .github/             workflows, modèles d'issue et de PR
-├── docker-compose.yml   serveur, PostgreSQL, Caddy (#18)
+├── compose.yaml         serveur, PostgreSQL, Caddy (#18)
+├── compose.dev.yaml     PostgreSQL seul, pour le développement et les tests (#22)
 ├── Caddyfile
 └── README.md
 ```
 
-Seuls `apps/server`, `apps/web` et les deux paquets existent pour l'instant ; les autres dossiers arrivent avec les issues indiquées.
+Seuls `apps/server`, `apps/web`, les deux paquets, `compose.yaml` et `compose.dev.yaml` existent pour l'instant ; les autres dossiers arrivent avec les issues indiquées.
 
 Le moteur est un paquet à part pour que son isolement soit garanti par la structure : son `package.json` ne déclare ni Express ni Drizzle, donc il ne peut pas les importer. Les paquets internes exposent directement leurs sources TypeScript : Node 22 les exécute sans compilation (suppression des types), et Vite les compile pour le web.

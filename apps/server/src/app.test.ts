@@ -4,10 +4,16 @@ import type { AddressInfo } from 'node:net';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { createDb } from './db/client.ts';
 import { createApp, type AppOptions } from './app.ts';
 
-async function start(options?: AppOptions) {
-  const server: Server = createApp(options).listen(0);
+// Le pool ne se connecte qu'à la première requête : ces tests n'utilisent pas la base.
+const { db, close } = createDb('postgres://localhost/unused');
+
+afterAll(close);
+
+async function start(options: Omit<AppOptions, 'db'> = {}) {
+  const server: Server = createApp({ db, ...options }).listen(0);
   await new Promise((resolve) => server.once('listening', resolve));
   const { port } = server.address() as AddressInfo;
   return { server, baseUrl: `http://localhost:${port}` };

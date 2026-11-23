@@ -1,7 +1,10 @@
+import { createDb } from './db/client.ts';
 import { createApp } from './app.ts';
+import { loadConfig } from './config.ts';
 
-const port = Number(process.env.PORT ?? 3000);
+const config = loadConfig();
+const { db } = createDb(config.databaseUrl);
 
-createApp({ webDir: process.env.WEB_DIST_DIR }).listen(port, () => {
-  console.log(`EpiQuest server listening on http://localhost:${port}`);
+createApp({ db, webDir: config.webDir }).listen(config.port, () => {
+  console.log(`EpiQuest server listening on http://localhost:${config.port}`);
 });

@@ -1,17 +1,21 @@
-import express, { type ErrorRequestHandler } from 'express';
-import type { Message } from '@epiquest/shared';
+import express from 'express';
+import type { Db } from './db/client.ts';
+import { handleError, notFound } from './http/errors.ts';
+import { healthRoutes } from './modules/health/health.routes.ts';
 
-export interface AppOptions {
+export type AppOptions = {
+  db: Db;
   /** Dossier du site Vue construit (`apps/web/dist`). En production, le serveur le sert lui-même (ADR-0007). */
   webDir?: string;
-}
+};
 
-export function createApp({ webDir }: AppOptions = {}) {
+// Les dépendances sont injectées : les tests passent leur propre base.
+export function createApp({ webDir }: AppOptions) {
   const app = express();
 
-  app.get('/api/health', (_req, res) => {
-    res.json({ status: 'ok' });
-  });
+  app.use(express.json());
+
+  app.use('/api/health', healthRoutes());
 
   if (webDir) {
     app.use(express.static(webDir));
@@ -25,16 +29,7 @@ export function createApp({ webDir }: AppOptions = {}) {
     });
   }
 
-  app.use((_req, res) => {
-    const body: Message = { code: 'server.notFound' };
-    res.status(404).json(body);
-  });
-
-  const handleError: ErrorRequestHandler = (err, _req, res, _next) => {
-    console.error(err);
-    const body: Message = { code: 'server.internalError' };
-    res.status(500).json(body);
-  };
+  app.use(notFound);
   app.use(handleError);
 
   return app;
