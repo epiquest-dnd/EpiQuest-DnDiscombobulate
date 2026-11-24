@@ -1,6 +1,6 @@
-# Intégration continue (issue #17).
+# Intégration continue (issues #17 et #18).
 #
-# À chaque PR vers dev ou main, et à chaque push sur ces branches : lint, formatage, types, tests et build du web.
+# À chaque PR vers dev ou main, et à chaque push sur ces branches : lint, formatage, types, tests, build du web et de l'image Docker.
 # Ces vérifications sont obligatoires pour merger (rulesets de dev et main).
 name: CI
 
@@ -49,3 +49,23 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  docker:
+    name: Image Docker
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build de l'image (sans publication)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Vérification du fichier Compose
+        run: POSTGRES_PASSWORD=ci docker compose config --quiet

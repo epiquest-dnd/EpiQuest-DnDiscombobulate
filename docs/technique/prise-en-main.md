@@ -55,6 +55,7 @@ L'arborescence complète prévue est dans [architecture.md](architecture.md#7-ar
 | `npm run lint` / `npm run lint:fix` | ESLint sur tout le dépôt (TypeScript, Vue, accessibilité des composants) / avec corrections automatiques |
 | `npm run format` / `npm run format:check` | Reformate avec Prettier / vérifie sans modifier |
 | `npm run check` | Lint, formatage, types et tests : ce que lance la CI |
+| `docker compose up --build` | Produit complet sur http://localhost (base, serveur, site, Caddy). Demande un `.env` copié depuis `.env.example` |
 
 **Hooks Git** : `npm ci` installe deux hooks (husky). Avant chaque commit, ESLint et Prettier corrigent les fichiers ajoutés ; le message de commit est vérifié par commitlint (Conventional Commits, types et domaines de [organisation.md](../projet/organisation.md)). La CI refait les mêmes vérifications, et contrôle aussi le titre de la PR.
 
