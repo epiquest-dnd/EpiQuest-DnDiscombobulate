@@ -241,10 +241,11 @@ Index : recherche du bestiaire sur `monster (creature_type, challenge_rating, si
 |---|---|---|---|
 | `id` | `uuid` PK | ✔ | |
 | `email` | `citext` unique | ✔ | Identifiant de connexion |
+| `role` | enum `user_role` : `admin`, `user` | ✔ | Rôle sur tout le produit, `user` par défaut. À ne pas confondre avec le rôle dans une campagne (`campaign_member.role` : `gm`, `player`) |
 | `password_hash` | `text` | ✔ | Argon2id (paramètres dans #22) |
 | `display_name` | `text` | ✔ | Nom affiché aux autres membres |
 | `locale` | `text` | ✔ | Langue de l'interface, `en` par défaut |
-| `preferences` | `jsonb` | | Préférences d'accessibilité (animations des dés, taille de la grille…) |
+| `preferences` | `jsonb` | ✔ | Préférences d'accessibilité (animations des dés, taille de la grille…). `{}` par défaut : jamais `null` |
 
 #### `auth_session`
 
