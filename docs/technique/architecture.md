@@ -138,6 +138,7 @@ Le même fichier Docker Compose sert en local : c'est la version de secours si l
 | Mobile | Kotlin Multiplatform, cible Android, client HTTP et WebSocket Ktor | [ADR-0002](adr/0002-mobile-kotlin-multiplatform.md) |
 | Hébergement | VPS OVH VPS-1, Docker Compose, Caddy (HTTPS) | [ADR-0007](adr/0007-hebergement-deploiement.md) |
 | Déploiement continu | GitHub Actions, images sur GHCR, déploiement par SSH | [ADR-0007](adr/0007-hebergement-deploiement.md) |
+| Organisation du serveur | Modules par domaine : routes, services, repositories (interface + Drizzle) | [ADR-0008](adr/0008-decoupage-du-serveur.md) (proposée) |
 
 ## 7. Arborescence du dépôt
 
@@ -146,7 +147,7 @@ Monorepo avec les workspaces npm (issue #15). Le détail des commandes est dans 
 ```
 /
 ├── apps/
-│   ├── server/          Express : API, temps réel, dés, vision, base (Drizzle), import du SRD (importe le moteur)
+│   ├── server/          Express : API, temps réel, dés, vision, base (Drizzle), import du SRD (importe le moteur) ; modules découpés en routes, services, repositories (ADR-0008)
 │   ├── web/             Vue : vue MJ, vue de table, pages web
 │   └── mobile/          projet Kotlin Multiplatform, module shared + app Android (#23)
 ├── packages/

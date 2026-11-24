@@ -23,8 +23,8 @@ Règles de séparation :
 |---|---|
 | Nommage | Tables et colonnes en `snake_case` anglais dans la base, `camelCase` côté TypeScript (Drizzle fait la conversion). Documentation en français. |
 | Identifiants de règles | `text`, clé Open5e de l'entrée (`srd-2024_fireball`). Contenu créé dans le produit : préfixe `custom_` (format-des-regles.md, section 2). |
-| Identifiants de partie | `uuid` v7 générés par le serveur : triables par date, sans compteur devinable dans les URL. |
-| Dates | `timestamptz`, en UTC. Toute table de partie a `created_at` et `updated_at`. |
+| Identifiants de partie | `uuid` v7 générés par le service qui crée l'entité (`v7()` du paquet `uuid`, ADR-0008) : triables par date, sans compteur devinable dans les URL. Pas de valeur par défaut en base. |
+| Dates | `timestamptz`, en UTC. Toute table de partie a `created_at` (fixé par le service, `defaultNow()` en filet) et `updated_at` (`$onUpdate` de Drizzle, `defaultNow()` à l'insertion). |
 | Données structurées | `jsonb` pour ce qui suit le format des règles ou des choix de création. Chaque colonne `jsonb` a un schéma de validation dans `packages/shared` (format-des-regles.md, section 9) ; aucune donnée non validée n'est écrite. |
 | Textes affichables | Jamais dans les colonnes lues par le moteur. Les textes du SRD sont dans `rules.rule_text`, par langue. Le serveur renvoie des codes (ADR-0004). |
 | Énumérations | Types `enum` PostgreSQL, générés depuis les mêmes listes TypeScript que le moteur. |
