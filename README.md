@@ -36,8 +36,13 @@ _À compléter (#18) : lancement du produit complet avec la base de données et 
 ## Tests
 
 ```sh
-npm test
+npm test             # types + tous les tests
+npm run lint         # ESLint (dont l'accessibilité des composants Vue)
+npm run format       # reformate le code avec Prettier
+npm run check        # lint + formatage + tests
 ```
+
+Un hook de commit applique ESLint et Prettier aux fichiers modifiés et vérifie le format du message.
 
 Vérifie les types puis lance tous les tests du serveur, du web et du moteur de règles. Les tests de l'application mobile y seront ajoutés avec son squelette (#23).
 

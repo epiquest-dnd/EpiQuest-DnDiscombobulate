@@ -1,0 +1,7 @@
+# Fins de ligne LF partout, quel que soit le système : Prettier les vérifie en CI.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary

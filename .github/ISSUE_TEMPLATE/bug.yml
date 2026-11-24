@@ -1,6 +1,6 @@
 name: Bug
 description: Signaler un comportement incorrect
-labels: ["bug"]
+labels: ['bug']
 body:
   - type: markdown
     attributes:
@@ -48,4 +48,4 @@ body:
     id: acceptation
     attributes:
       label: Critères d'acceptation
-      value: "- [ ] "
+      value: '- [ ] '
