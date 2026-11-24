@@ -1,6 +1,6 @@
 # EpiQuest
 
-[![CI](https://github.com/angikonys/EpiQuest-DnDiscombobulate/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/angikonys/EpiQuest-DnDiscombobulate/actions/workflows/ci.yml)
+[![CI](https://github.com/epiquest-dnd/EpiQuest-DnDiscombobulate/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/epiquest-dnd/EpiQuest-DnDiscombobulate/actions/workflows/ci.yml)
 
 Table de jeu de rôle virtuelle pour la 5e édition, à utiliser autour d'une vraie table. Le maître du jeu pilote la partie sur son écran, et une vue joueurs affichée sur un second écran montre uniquement ce que les personnages peuvent voir.
 
