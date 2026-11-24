@@ -1,5 +1,4 @@
-// Point d'entrée du schéma (client Drizzle et drizzle-kit).
-// Les tables sont déclarées dans game/ et rules/, puis réexportées ici.
+// Point d'entrée du schéma pour le client Drizzle et drizzle-kit.
 export * from './namespaces.ts';
 export * from './game/users.ts';
 export * from './game/auth.ts';

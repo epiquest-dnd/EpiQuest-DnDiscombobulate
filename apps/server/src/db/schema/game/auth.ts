@@ -23,8 +23,5 @@ export const auth_session = game.table(
       .defaultNow()
       .$onUpdate(() => new Date(Date.now())),
   },
-  (table) => [
-    // PostgreSQL n'indexe pas les clés étrangères : suppression en cascade et révocation de toutes les sessions d'un compte.
-    index('auth_session_user_id_idx').on(table.user_id),
-  ],
+  (table) => [index('auth_session_user_id_idx').on(table.user_id)],
 );

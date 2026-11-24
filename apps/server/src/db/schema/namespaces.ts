@@ -1,8 +1,5 @@
 import { pgSchema } from 'drizzle-orm/pg-core';
 
-// Deux schémas PostgreSQL distincts (modele-de-donnees.md, section 1) :
-// - rules : données de règles, écrites uniquement par le script d'import (#20) ;
-// - game : données de partie, écrites par le serveur.
-// Les fichiers de tables importent ce fichier, jamais index.ts (import circulaire).
+// Schémas PostgreSQL game et rules, importés par les fichiers de tables (jamais par index.ts).
 export const rules = pgSchema('rules');
 export const game = pgSchema('game');
