@@ -8,7 +8,7 @@ En participant, tu acceptes le [code de conduite](CODE_OF_CONDUCT.md).
 
 1. **Relis d'abord les PR en attente** : relire passe avant prendre.
 2. Prends une issue du milestone en cours, en commençant par celles marquées `priorité: haute`.
-3. **Assigne-toi l'issue** et passe-la en « En cours » dans le [tableau](https://github.com/users/angikonys/projects/5) avant de commencer.
+3. **Assigne-toi l'issue** et passe-la en « En cours » dans le [tableau](https://github.com/orgs/epiquest-dnd/projects/1) avant de commencer.
 4. Une seule tâche en cours par personne. Si elle est trop grosse ou bloquée, découpe-la ou signale-le au point quotidien.
 
 Toute tâche est une issue, avec un responsable, des labels (type, domaine, taille) et un milestone. Pour en créer une, utilise les modèles proposés par GitHub.
