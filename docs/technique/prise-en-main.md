@@ -54,9 +54,9 @@ L'arborescence complète prévue est dans [architecture.md](architecture.md#7-ar
 | `npm install <paquet> -w @epiquest/server` | Ajoute une dépendance à un espace de travail (version exacte, grâce à `save-exact`) |
 | `npm run lint` / `npm run lint:fix` | ESLint sur tout le dépôt (TypeScript, Vue, accessibilité des composants) / avec corrections automatiques |
 | `npm run format` / `npm run format:check` | Reformate avec Prettier / vérifie sans modifier |
-| `npm run check` | Lint, formatage, types et tests |
+| `npm run check` | Lint, formatage, types et tests : ce que lance la CI |
 
-**Hooks Git** : `npm ci` installe deux hooks (husky). Avant chaque commit, ESLint et Prettier corrigent les fichiers ajoutés ; le message de commit est vérifié par commitlint (Conventional Commits, types et domaines de [organisation.md](../projet/organisation.md)).
+**Hooks Git** : `npm ci` installe deux hooks (husky). Avant chaque commit, ESLint et Prettier corrigent les fichiers ajoutés ; le message de commit est vérifié par commitlint (Conventional Commits, types et domaines de [organisation.md](../projet/organisation.md)). La CI refait les mêmes vérifications, et contrôle aussi le titre de la PR.
 
 Le Markdown n'est pas formaté par Prettier : il réalignerait tous les tableaux de la documentation.
 
