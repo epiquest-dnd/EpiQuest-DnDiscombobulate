@@ -47,13 +47,14 @@
 ```
 apps/server/src/
 ├── modules/
-│   └── auth/
-│       ├── auth.routes.ts            HTTP : lit et valide la requête, appelle le service, renvoie un code
-│       ├── auth.service.ts           règles métier : hachage, sessions, permissions
-│       ├── auth.types.ts             types du domaine (User, Session), sans Drizzle
-│       ├── user.repository.ts        interface UserRepository
-│       ├── user.repository.drizzle.ts   implémentation Drizzle de UserRepository
-│       └── auth.service.test.ts      tests du service avec des repositories en mémoire
+│   ├── users/
+│   │   ├── users.routes.ts           HTTP : lit et valide la requête, appelle le service, renvoie un code
+│   │   ├── users.service.ts          règles métier du module
+│   │   ├── users.types.ts            types du domaine (User), sans Drizzle
+│   │   ├── user.repository.ts        interface UserRepository
+│   │   ├── user.repository.drizzle.ts   implémentation Drizzle de UserRepository
+│   │   └── users.service.test.ts     tests du service avec des repositories en mémoire
+│   └── auth/                         même découpage : routes, service, session.repository…
 ├── db/
 │   ├── client.ts
 │   └── schema/                       tables Drizzle de tous les modules (un seul schéma pour drizzle-kit)
@@ -71,8 +72,34 @@ apps/server/src/
 
 - **Les services reçoivent leurs dépendances par le constructeur** (classes) ou en paramètre. `app.ts` fait le câblage à partir de `createApp({ db })` ; les tests passent leurs propres repositories.
 - **Un module n'utilise jamais le repository d'un autre module** : il passe par son service.
+- **Chaque table appartient à un seul module**, le seul à avoir un repository dessus. Les autres modules lisent et écrivent ces données par son service.
+- **Une donnée sensible ne sort d'un module que par une méthode dédiée**, au nom explicite et au type de retour minimal. Les types du domaine ne la contiennent pas, pour qu'elle ne puisse pas fuiter par une route.
+- **Les dépendances entre modules vont dans un seul sens** : pas de cycle entre deux services.
 - **Les repositories renvoient des types du domaine**, pas les types inférés de Drizzle. Au début ils se ressemblent ; la conversion se fait dans le repository.
-- **Le schéma Drizzle reste dans `db/schema/`**, rangé par schéma PostgreSQL (`game/`, `rules/`), parce que drizzle-kit lit un seul point d'entrée et que des tables servent à plusieurs modules.
+- **Le schéma Drizzle reste dans `db/schema/`**, rangé par schéma PostgreSQL (`game/`, `rules/`), parce que drizzle-kit lit un seul point d'entrée et que les clés étrangères relient des tables de modules différents. Un fichier par module (`game/users.ts`, `game/auth.ts`…) garde le lien avec son propriétaire.
+
+### Exemple : `users` et `auth`
+
+Deux modules distincts : `users` gère **qui est l'utilisateur** (nom affiché, langue, préférences, rôle) ; `auth` gère **la preuve de son identité** (mot de passe, sessions). Les campagnes, les jets ou le combat ont besoin d'un utilisateur sans rien savoir de l'authentification.
+
+| | `users` | `auth` |
+|---|---|---|
+| Tables | `game.app_user` | `game.auth_session` |
+| Service | créer un compte, lire un utilisateur, modifier le profil et les préférences | inscription, connexion, déconnexion, `authenticate(token)` |
+| Routes | `GET` / `PATCH /api/users/me` | `POST /api/auth/register`, `/login`, `/logout` |
+| Autres fichiers | | `password.ts` (Argon2id), `token.ts` (jeton et empreinte), `auth.middleware.ts` (`requireAuth`) |
+
+`password_hash` est une colonne de `app_user`, donc du module `users`, mais seul `auth` s'en sert. Le type `User` ne la contient pas ; `UsersService` expose deux méthodes réservées à `auth` :
+
+- `createWithPassword(input, passwordHash)` : `auth` calcule le hash, `users` l'enregistre sans voir le mot de passe en clair ;
+- `findCredentialsByEmail(email)` : renvoie `{ userId, passwordHash }` et rien d'autre.
+
+`auth` dépend de `users`, jamais l'inverse. Câblage dans `app.ts` :
+
+```ts
+const usersService = new UsersService(new DrizzleUserRepository(db));
+const authService = new AuthService(usersService, new DrizzleSessionRepository(db), () => new Date());
+```
 
 ### Identifiants et dates
 
