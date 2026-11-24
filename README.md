@@ -13,6 +13,7 @@ _À compléter : fonctionnalités principales et captures d'écran._
 ## Prérequis
 
 - Node.js 22.22.2 ou plus récent en 22.x (voir `.nvmrc`) et npm 10.
+- Docker avec le plugin Compose, pour lancer le produit complet.
 
 Stack et justifications : [ADR-0004](docs/technique/adr/0004-stack-serveur-web-bdd.md).
 
@@ -33,7 +34,14 @@ npm run dev:server   # API sur http://localhost:3000
 npm run dev:web      # site sur http://localhost:5173
 ```
 
-_À compléter (#18) : lancement du produit complet avec la base de données et la campagne de démonstration._
+Produit complet (base de données, serveur, site et reverse proxy), avec Docker :
+
+```sh
+cp .env.example .env
+docker compose up --build   # site sur http://localhost
+```
+
+_À compléter (#18) : import du SRD et chargement de la campagne de démonstration._
 
 ## Tests
 
@@ -44,7 +52,7 @@ npm run format       # reformate le code avec Prettier
 npm run check        # lint + formatage + tests, comme la CI
 ```
 
-La CI (GitHub Actions) lance ces vérifications et le build du web à chaque PR. Un hook de commit applique ESLint et Prettier aux fichiers modifiés et vérifie le format du message.
+La CI (GitHub Actions) lance ces vérifications, le build du web et celui de l'image Docker à chaque PR. Un hook de commit applique ESLint et Prettier aux fichiers modifiés et vérifie le format du message.
 
 Vérifie les types puis lance tous les tests du serveur, du web et du moteur de règles. Les tests de l'application mobile y seront ajoutés avec son squelette (#23).
 
