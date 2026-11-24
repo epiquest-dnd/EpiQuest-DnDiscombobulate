@@ -1,5 +1,7 @@
 # EpiQuest
 
+[![CI](https://github.com/epiquest-dnd/EpiQuest-DnDiscombobulate/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/epiquest-dnd/EpiQuest-DnDiscombobulate/actions/workflows/ci.yml)
+
 Table de jeu de rôle virtuelle pour la 5e édition, à utiliser autour d'une vraie table. Le maître du jeu pilote la partie sur son écran, et une vue joueurs affichée sur un second écran montre uniquement ce que les personnages peuvent voir.
 
 > Projet en cours de cadrage : le produit n'existe pas encore. Les sections ci-dessous seront complétées au fil des milestones.
@@ -11,6 +13,7 @@ _À compléter : fonctionnalités principales et captures d'écran._
 ## Prérequis
 
 - Node.js 22.22.2 ou plus récent en 22.x (voir `.nvmrc`) et npm 10.
+- Docker avec le plugin Compose, pour lancer le produit complet.
 
 Stack et justifications : [ADR-0004](docs/technique/adr/0004-stack-serveur-web-bdd.md).
 
@@ -31,13 +34,25 @@ npm run dev:server   # API sur http://localhost:3000
 npm run dev:web      # site sur http://localhost:5173
 ```
 
-_À compléter (#18) : lancement du produit complet avec la base de données et la campagne de démonstration._
+Produit complet (base de données, serveur, site et reverse proxy), avec Docker :
+
+```sh
+cp .env.example .env
+docker compose up --build   # site sur http://localhost
+```
+
+_À compléter (#18) : import du SRD et chargement de la campagne de démonstration._
 
 ## Tests
 
 ```sh
-npm test
+npm test             # types + tous les tests
+npm run lint         # ESLint (dont l'accessibilité des composants Vue)
+npm run format       # reformate le code avec Prettier
+npm run check        # lint + formatage + tests, comme la CI
 ```
+
+La CI (GitHub Actions) lance ces vérifications, le build du web et celui de l'image Docker à chaque PR. Un hook de commit applique ESLint et Prettier aux fichiers modifiés et vérifie le format du message.
 
 Vérifie les types puis lance tous les tests du serveur, du web et du moteur de règles. Les tests de l'application mobile y seront ajoutés avec son squelette (#23).
 

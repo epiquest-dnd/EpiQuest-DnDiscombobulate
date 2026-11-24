@@ -1,0 +1,10 @@
+# Générés ou gérés par un outil
+package-lock.json
+dist/
+coverage/
+
+# Documentation : Prettier réaligne les tableaux Markdown, ce qui rend les diffs illisibles
+*.md
+
+# Données du backlog, produites par un script
+setup/

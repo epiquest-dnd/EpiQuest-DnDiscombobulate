@@ -1,0 +1,12 @@
+**/node_modules
+**/dist
+**/coverage
+**/*.test.ts
+.git
+.github
+.husky
+.env
+.env.*
+docs
+setup
+*.md
