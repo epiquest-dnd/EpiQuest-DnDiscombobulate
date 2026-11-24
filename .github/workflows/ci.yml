@@ -1,0 +1,51 @@
+# Intégration continue (issue #17).
+#
+# À chaque PR vers dev ou main, et à chaque push sur ces branches : lint, formatage, types, tests et build du web.
+# Ces vérifications sont obligatoires pour merger (rulesets de dev et main).
+name: CI
+
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  # Seules les PR annulent leur exécution précédente : un push sur dev ou main va toujours au bout.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  # Les hooks Git sont inutiles en CI.
+  HUSKY: '0'
+
+jobs:
+  checks:
+    name: Lint, tests et build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Formatage
+        run: npm run format:check
+
+      - name: Types et tests
+        run: npm test
+
+      - name: Build
+        run: npm run build

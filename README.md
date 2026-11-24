@@ -1,5 +1,7 @@
 # EpiQuest
 
+[![CI](https://github.com/angikonys/EpiQuest-DnDiscombobulate/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/angikonys/EpiQuest-DnDiscombobulate/actions/workflows/ci.yml)
+
 Table de jeu de rôle virtuelle pour la 5e édition, à utiliser autour d'une vraie table. Le maître du jeu pilote la partie sur son écran, et une vue joueurs affichée sur un second écran montre uniquement ce que les personnages peuvent voir.
 
 > Projet en cours de cadrage : le produit n'existe pas encore. Les sections ci-dessous seront complétées au fil des milestones.
@@ -39,10 +41,10 @@ _À compléter (#18) : lancement du produit complet avec la base de données et 
 npm test             # types + tous les tests
 npm run lint         # ESLint (dont l'accessibilité des composants Vue)
 npm run format       # reformate le code avec Prettier
-npm run check        # lint + formatage + tests
+npm run check        # lint + formatage + tests, comme la CI
 ```
 
-Un hook de commit applique ESLint et Prettier aux fichiers modifiés et vérifie le format du message.
+La CI (GitHub Actions) lance ces vérifications et le build du web à chaque PR. Un hook de commit applique ESLint et Prettier aux fichiers modifiés et vérifie le format du message.
 
 Vérifie les types puis lance tous les tests du serveur, du web et du moteur de règles. Les tests de l'application mobile y seront ajoutés avec son squelette (#23).
 
