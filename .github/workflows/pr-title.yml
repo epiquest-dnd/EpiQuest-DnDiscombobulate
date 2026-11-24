@@ -1,0 +1,33 @@
+# Les PR sont fusionnées en squash : leur titre devient le commit sur dev.
+# Il doit donc respecter Conventional Commits, comme les commits locaux (hook commit-msg).
+name: Titre de la PR
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  commitlint:
+    name: Conventional Commits
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      HUSKY: '0'
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Vérification du titre
+        env:
+          # Passé par une variable, jamais interpolé dans le script : le titre est saisi librement.
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$PR_TITLE" | npx commitlint --verbose

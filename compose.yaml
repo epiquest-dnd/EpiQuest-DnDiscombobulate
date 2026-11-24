@@ -1,0 +1,58 @@
+# Produit complet : base de données, serveur (API + site) et reverse proxy HTTPS (ADR-0007).
+# Le même fichier sert en local et sur le VPS ; seules les valeurs du fichier .env changent.
+#
+#   En local :  cp .env.example .env   puis   docker compose up --build
+#               → http://localhost
+#   Sur le VPS : déployé par GitHub Actions (docs/technique/exploitation.md §5)
+
+name: epiquest
+
+services:
+  server:
+    # En production, EPIQUEST_IMAGE désigne l'image publiée sur GHCR ; en local, elle est construite.
+    image: ${EPIQUEST_IMAGE:-epiquest-server:local}
+    build: .
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-epiquest}:${POSTGRES_PASSWORD:?définir POSTGRES_PASSWORD dans .env}@db:5432/${POSTGRES_DB:-epiquest}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-epiquest}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?définir POSTGRES_PASSWORD dans .env}
+      POSTGRES_DB: ${POSTGRES_DB:-epiquest}
+    # Aucun port publié : la base n'est jamais exposée à Internet.
+    volumes:
+      - db-data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:-http://localhost}
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    volumes:
+      # :Z pour SELinux sur le VPS Fedora ; ignoré ailleurs.
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro,Z
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - server
+
+volumes:
+  db-data:
+  caddy-data:
+  caddy-config:

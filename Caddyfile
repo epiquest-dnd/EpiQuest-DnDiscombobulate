@@ -1,0 +1,13 @@
+# Reverse proxy devant le serveur (ADR-0007).
+# SITE_ADDRESS vaut http://localhost en local (pas de certificat) et l'IP du VPS en production.
+{
+	# Let's Encrypt n'accepte que des certificats courts (6 jours) pour une adresse IP.
+	cert_issuer acme {
+		profile shortlived
+	}
+}
+
+{$SITE_ADDRESS} {
+	encode zstd gzip
+	reverse_proxy server:3000
+}
