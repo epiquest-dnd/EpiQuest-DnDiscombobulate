@@ -9,19 +9,19 @@ export const clientEnum = game.enum('auth_client', ['web', 'mobile']);
 export const auth_session = game.table(
   'auth_session',
   {
-    id: uuid('id').primaryKey(),
-    user_id: uuid('user_id')
+    id: uuid().primaryKey(),
+    userId: uuid()
       .notNull()
       .references(() => app_user.id, { onDelete: 'cascade' }),
-    token_hash: text('token_hash').notNull().unique(),
-    client: clientEnum('client').notNull(),
-    expires_at: timestamp('expires_at', { withTimezone: true }).notNull(),
-    revoked_at: timestamp('revoked_at', { withTimezone: true }),
-    created_at: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-    updated_at: timestamp('updated_at', { withTimezone: true })
+    tokenHash: text().notNull().unique('auth_session_token_hash_unique'),
+    client: clientEnum().notNull(),
+    expiresAt: timestamp({ withTimezone: true }).notNull(),
+    revokedAt: timestamp({ withTimezone: true }),
+    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp({ withTimezone: true })
       .notNull()
       .defaultNow()
       .$onUpdate(() => new Date(Date.now())),
   },
-  (table) => [index('auth_session_user_id_idx').on(table.user_id)],
+  (table) => [index('auth_session_user_id_idx').on(table.userId)],
 );
