@@ -2,6 +2,9 @@ import express from 'express';
 import type { Db } from './db/client.ts';
 import { handleError, notFound } from './http/errors.ts';
 import { healthRoutes } from './modules/health/health.routes.ts';
+import { DrizzleUserRepository } from './modules/users/user.repository.drizzle.ts';
+import { usersRoutes } from './modules/users/users.routes.ts';
+import { UsersService } from './modules/users/users.service.ts';
 
 export type AppOptions = {
   db: Db;
@@ -10,12 +13,15 @@ export type AppOptions = {
 };
 
 // Les dépendances sont injectées : les tests passent leur propre base.
-export function createApp({ webDir }: AppOptions) {
+export function createApp({ db, webDir }: AppOptions) {
+  const usersService = new UsersService(new DrizzleUserRepository(db));
+
   const app = express();
 
   app.use(express.json());
 
   app.use('/api/health', healthRoutes());
+  app.use('/api/users', usersRoutes(usersService));
 
   if (webDir) {
     app.use(express.static(webDir));
