@@ -18,7 +18,7 @@ export const app_user = game.table('app_user', {
   passwordHash: text().notNull(),
   displayName: text().notNull(),
   locale: text().notNull().default('en'),
-  preferences: jsonb().notNull().default('{}'),
+  preferences: jsonb().$type<Record<string, unknown>>().notNull().default({}),
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp({ withTimezone: true })
     .notNull()
