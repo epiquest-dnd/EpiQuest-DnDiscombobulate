@@ -13,6 +13,7 @@
   "dependencies": {
     "@epiquest/rules-engine": "*",
     "@epiquest/shared": "*",
+    "@node-rs/argon2": "2.2.2",
     "drizzle-orm": "0.45.4",
     "express": "5.3.0",
     "pg": "8.23.1",
