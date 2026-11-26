@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import type { Db } from './db/client.ts';
 import { handleError, notFound } from './http/errors.ts';
@@ -19,6 +20,7 @@ export function createApp({ db, webDir }: AppOptions) {
   const app = express();
 
   app.use(express.json());
+  app.use(cookieParser());
 
   app.use('/api/health', healthRoutes());
   app.use('/api/users', usersRoutes(usersService));
