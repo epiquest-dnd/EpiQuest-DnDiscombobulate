@@ -87,7 +87,7 @@ Deux modules distincts : `users` gère **qui est l'utilisateur** (nom affiché, 
 | Tables | `game.app_user` | `game.auth_session` |
 | Service | créer un compte, lire un utilisateur, modifier le profil et les préférences | inscription, connexion, déconnexion, `authenticate(token)` |
 | Routes | `GET` / `PATCH /api/users/me` | `POST /api/auth/register`, `/login`, `/logout` |
-| Autres fichiers | | `password.ts` (Argon2id), `token.ts` (jeton et empreinte), `auth.middleware.ts` (`requireAuth`) |
+| Autres fichiers | | `auth.crypto.ts` (mots de passe en Argon2id, jetons et leur empreinte SHA-256), `auth.middleware.ts` (`requireAuth`) |
 
 `password_hash` est une colonne de `app_user`, donc du module `users`, mais seul `auth` s'en sert. Le type `User` ne la contient pas ; `UsersService` expose deux méthodes réservées à `auth` :
 
