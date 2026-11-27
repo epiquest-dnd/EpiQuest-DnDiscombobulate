@@ -67,15 +67,28 @@ Dans `apps/server/src`, le code est rangé **par domaine** et non par couche tec
 | Emplacement | Contenu |
 |---|---|
 | `index.ts` | Démarrage : lit la configuration, ouvre la base, lance le serveur |
-| `app.ts` | `createApp({ db })` : monte les middlewares et les routes de chaque module. La base est injectée, les tests passent la leur |
+| `app.ts` | `createApiModules` liste les modules de l'API (préfixe, middlewares, routes, doc OpenAPI) ; `createApp({ db })` les monte et sert la doc. La base est injectée, les tests passent la leur |
 | `config.ts` | Variables d'environnement, validées au démarrage |
 | `db/` | Client Drizzle (`client.ts`) et schéma : `schema/game/` pour les données de partie, `schema/rules/` pour les données de règles, réexportés par `schema/index.ts` |
-| `http/` | Ce qui sert à toutes les routes : réponses d'erreur, validation |
-| `modules/<domaine>/` | Un dossier par domaine (`auth`, `campaigns`, `dice`…) : `<domaine>.routes.ts` lit la requête et renvoie un code, `<domaine>.service.ts` porte la logique et parle à la base, tests à côté |
+| `http/` | Ce qui sert à toutes les routes : réponses d'erreur, génération de la spec OpenAPI (`openapi.ts`) |
+| `modules/<domaine>/` | Un dossier par domaine (`auth`, `campaigns`, `dice`…) : `<domaine>.routes.ts` lit la requête et renvoie un code, `<domaine>.openapi.ts` la documente, `<domaine>.service.ts` porte la logique et parle à la base, tests à côté |
 
 Après une modification du schéma, `npm run db:generate` écrit la migration SQL dans `apps/server/drizzle/` ; on la relit et on la commite avec le code.
 
 L'arborescence complète prévue est dans [architecture.md](architecture.md#7-arborescence-du-dépôt).
+
+### Documentation de l'API
+
+Serveur lancé, la doc interactive (Swagger UI) est sur http://localhost:3000/api/docs et la spec OpenAPI 3.1 sur `/api/openapi.json`. Le mobile s'en sert pour générer ou vérifier ses modèles Kotlin (ADR-0002).
+
+La spec est générée depuis les schémas Zod de `@epiquest/shared` : on ne l'écrit jamais à la main. Pour ajouter une route :
+
+1. Mettre les schémas du corps et de la réponse dans `packages/shared/src/`, avec `.meta({ id: 'NomDuSchema' })` pour qu'ils deviennent des composants réutilisables. La route valide le corps avec ce même schéma (`safeParse`).
+2. Écrire la route dans `<domaine>.routes.ts`.
+3. La décrire dans `<domaine>.openapi.ts` : corps, réponses, et chaque code d'erreur avec `messageResponse('`code.erreur`.')`. Une route qui exige une session prend `security: requiresSession`.
+4. Pour un nouveau module, l'ajouter à `createApiModules` dans `app.ts` : le champ `paths` est obligatoire.
+
+Le test `http/openapi.test.ts` échoue si une route n'est pas documentée, ou si la doc décrit une route qui n'existe pas.
 
 ## 5. Commandes utiles
 
