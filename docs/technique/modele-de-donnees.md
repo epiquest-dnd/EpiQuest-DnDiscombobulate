@@ -23,8 +23,8 @@ Règles de séparation :
 |---|---|
 | Nommage | Tables et colonnes en `snake_case` anglais dans la base, `camelCase` côté TypeScript (Drizzle fait la conversion). Documentation en français. |
 | Identifiants de règles | `text`, clé Open5e de l'entrée (`srd-2024_fireball`). Contenu créé dans le produit : préfixe `custom_` (format-des-regles.md, section 2). |
-| Identifiants de partie | `uuid` v7 générés par le serveur : triables par date, sans compteur devinable dans les URL. |
-| Dates | `timestamptz`, en UTC. Toute table de partie a `created_at` et `updated_at`. |
+| Identifiants de partie | `uuid` v7 générés par le service qui crée l'entité (`v7()` du paquet `uuid`, ADR-0008) : triables par date, sans compteur devinable dans les URL. Pas de valeur par défaut en base. |
+| Dates | `timestamptz`, en UTC. Toute table de partie a `created_at` (fixé par le service, `defaultNow()` en filet) et `updated_at` (`$onUpdate` de Drizzle, `defaultNow()` à l'insertion). |
 | Données structurées | `jsonb` pour ce qui suit le format des règles ou des choix de création. Chaque colonne `jsonb` a un schéma de validation dans `packages/shared` (format-des-regles.md, section 9) ; aucune donnée non validée n'est écrite. |
 | Textes affichables | Jamais dans les colonnes lues par le moteur. Les textes du SRD sont dans `rules.rule_text`, par langue. Le serveur renvoie des codes (ADR-0004). |
 | Énumérations | Types `enum` PostgreSQL, générés depuis les mêmes listes TypeScript que le moteur. |
@@ -241,10 +241,11 @@ Index : recherche du bestiaire sur `monster (creature_type, challenge_rating, si
 |---|---|---|---|
 | `id` | `uuid` PK | ✔ | |
 | `email` | `citext` unique | ✔ | Identifiant de connexion |
-| `password_hash` | `text` | ✔ | Argon2id (paramètres dans #22) |
+| `role` | enum `user_role` : `admin`, `user` | ✔ | Rôle sur tout le produit, `user` par défaut. À ne pas confondre avec le rôle dans une campagne (`campaign_member.role` : `gm`, `player`) |
+| `password_hash` | `text` | ✔ | Argon2id, 19 Mio de mémoire, 2 itérations, 1 fil (minimum recommandé par l'OWASP) |
 | `display_name` | `text` | ✔ | Nom affiché aux autres membres |
 | `locale` | `text` | ✔ | Langue de l'interface, `en` par défaut |
-| `preferences` | `jsonb` | | Préférences d'accessibilité (animations des dés, taille de la grille…) |
+| `preferences` | `jsonb` | ✔ | Préférences d'accessibilité (animations des dés, taille de la grille…). `{}` par défaut : jamais `null` |
 
 #### `auth_session`
 
@@ -252,10 +253,10 @@ Index : recherche du bestiaire sur `monster (creature_type, challenge_rating, si
 |---|---|---|---|
 | `id` | `uuid` PK | ✔ | |
 | `user_id` | `uuid` FK `app_user` | ✔ | |
-| `token_hash` | `text` unique | ✔ | Empreinte du jeton ; le jeton lui-même n'est jamais stocké |
+| `token_hash` | `text` unique | ✔ | Empreinte SHA-256 du jeton (256 bits aléatoires) ; le jeton lui-même n'est jamais stocké |
 | `client` | enum `web`, `mobile` | ✔ | Cookie de session (web) ou jeton porteur (mobile) |
-| `expires_at` | `timestamptz` | ✔ | |
-| `revoked_at` | `timestamptz` | | Déconnexion |
+| `expires_at` | `timestamptz` | ✔ | 7 jours après l'ouverture, sans prolongation |
+| `revoked_at` | `timestamptz` | | Déconnexion. Une session déjà révoquée garde sa première date |
 
 #### `campaign`
 

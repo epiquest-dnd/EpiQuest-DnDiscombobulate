@@ -1,4 +1,4 @@
-# Intégration continue (issues #17 et #18).
+# Intégration continue (issues #17, #18 et #22).
 #
 # À chaque PR vers dev ou main, et à chaque push sur ces branches : lint, formatage, types, tests, build du web et de l'image Docker.
 # Ces vérifications sont obligatoires pour merger (rulesets de dev et main).
@@ -28,6 +28,22 @@ jobs:
     name: Lint, tests et build
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # Base des tests du serveur (#22), même image que compose.dev.yaml.
+    # Jetable : identifiants sans valeur hors de la CI.
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: epiquest
+          POSTGRES_PASSWORD: epiquest
+          POSTGRES_DB: epiquest
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U epiquest -d epiquest"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v5
 
@@ -46,6 +62,9 @@ jobs:
 
       - name: Types et tests
         run: npm test
+        env:
+          # Créée et migrée par apps/server/src/test/global-setup.ts.
+          TEST_DATABASE_URL: postgres://epiquest:epiquest@localhost:5432/epiquest_test
 
       - name: Build
         run: npm run build

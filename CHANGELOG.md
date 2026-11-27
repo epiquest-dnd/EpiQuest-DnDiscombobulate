@@ -9,3 +9,4 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et le pr
 ### Ajouté
 
 - Documentation de cadrage, backlog et fichiers de base du dépôt.
+- Comptes utilisateurs côté serveur : inscription, connexion, déconnexion et sessions de 7 jours (cookie pour le web, jeton porteur pour le mobile).

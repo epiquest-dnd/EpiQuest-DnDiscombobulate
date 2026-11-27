@@ -39,5 +39,22 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    files: ['**/*.ts', '**/*.vue'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^\\.{1,2}/.*\\.js$',
+              message:
+                "Importer le fichier source avec l'extension .ts : Node exécute le TypeScript sans compilation, un fichier .js n'existe pas.",
+            },
+          ],
+        },
+      ],
+    },
+  },
   prettier,
 );

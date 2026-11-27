@@ -1,0 +1,1 @@
+ALTER TABLE "game"."app_user" ALTER COLUMN "preferences" SET DEFAULT '{}'::jsonb;
