@@ -1,7 +1,13 @@
 import { Router, type Response } from 'express';
-import type { Message } from '@epiquest/shared';
+import {
+  loginInputSchema,
+  PASSWORD_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH,
+  registerInputSchema,
+  type Message,
+} from '@epiquest/shared';
 import { EmailTakenError } from '../users/users.errors.ts';
-import { InvalidCredentialsError, WeakPasswordError } from './auth.errors.ts';
+import { InvalidCredentialsError } from './auth.errors.ts';
 import { requireAuth, SESSION_COOKIE } from './auth.middleware.ts';
 import type { AuthService } from './auth.service.ts';
 import type { AuthResult } from './auth.types.ts';
@@ -10,13 +16,18 @@ export type AuthRoutesOptions = {
   secureCookies: boolean;
 };
 
-function isNonEmptyString(value: unknown): value is string {
-  return typeof value === 'string' && value.trim() !== '';
+function sendMessage(res: Response, status: number, code: string, params?: Message['params']) {
+  const body: Message = params ? { code, params } : { code };
+  res.status(status).json(body);
 }
 
-function sendMessage(res: Response, status: number, code: string) {
-  const body: Message = { code };
-  res.status(status).json(body);
+type ValidationIssue = { path: PropertyKey[]; code: string };
+
+function isOnlyPasswordLength(issues: ValidationIssue[]) {
+  return issues.every(
+    (issue) =>
+      issue.path[0] === 'password' && (issue.code === 'too_small' || issue.code === 'too_big'),
+  );
 }
 
 export function authRoutes(authService: AuthService, { secureCookies }: AuthRoutesOptions) {
@@ -34,27 +45,25 @@ export function authRoutes(authService: AuthService, { secureCookies }: AuthRout
   }
 
   router.post('/register', async (req, res) => {
-    const { email, password, displayName, locale } = req.body ?? {};
-    if (
-      !isNonEmptyString(email) ||
-      typeof password !== 'string' ||
-      !isNonEmptyString(displayName) ||
-      (locale !== undefined && !isNonEmptyString(locale))
-    ) {
+    const input = registerInputSchema.safeParse(req.body);
+    if (!input.success) {
+      if (isOnlyPasswordLength(input.error.issues)) {
+        sendMessage(res, 400, 'auth.weakPassword', {
+          min: PASSWORD_MIN_LENGTH,
+          max: PASSWORD_MAX_LENGTH,
+        });
+        return;
+      }
       sendMessage(res, 400, 'auth.invalidInput');
       return;
     }
 
     try {
-      const result = await authService.register({ email, password, displayName, locale }, 'web');
+      const result = await authService.register(input.data, 'web');
       openSession(res, 201, result);
     } catch (error) {
       if (error instanceof EmailTakenError) {
         sendMessage(res, 409, 'auth.emailTaken');
-        return;
-      }
-      if (error instanceof WeakPasswordError) {
-        sendMessage(res, 400, 'auth.weakPassword');
         return;
       }
       throw error;
@@ -62,14 +71,14 @@ export function authRoutes(authService: AuthService, { secureCookies }: AuthRout
   });
 
   router.post('/login', async (req, res) => {
-    const { email, password } = req.body ?? {};
-    if (!isNonEmptyString(email) || typeof password !== 'string') {
+    const input = loginInputSchema.safeParse(req.body);
+    if (!input.success) {
       sendMessage(res, 400, 'auth.invalidInput');
       return;
     }
 
     try {
-      const result = await authService.login({ email, password }, 'web');
+      const result = await authService.login(input.data, 'web');
       openSession(res, 200, result);
     } catch (error) {
       if (error instanceof InvalidCredentialsError) {

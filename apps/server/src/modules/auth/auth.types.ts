@@ -13,17 +13,7 @@ export type Session = {
   updatedAt: Date;
 };
 
-export type RegisterInput = {
-  email: string;
-  password: string;
-  displayName: string;
-  locale?: string;
-};
-
-export type LoginInput = {
-  email: string;
-  password: string;
-};
+export type { LoginInput, RegisterInput } from '@epiquest/shared';
 
 export type AuthResult = {
   user: User;
