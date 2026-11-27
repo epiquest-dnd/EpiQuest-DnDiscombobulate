@@ -242,7 +242,7 @@ Index : recherche du bestiaire sur `monster (creature_type, challenge_rating, si
 | `id` | `uuid` PK | ✔ | |
 | `email` | `citext` unique | ✔ | Identifiant de connexion |
 | `role` | enum `user_role` : `admin`, `user` | ✔ | Rôle sur tout le produit, `user` par défaut. À ne pas confondre avec le rôle dans une campagne (`campaign_member.role` : `gm`, `player`) |
-| `password_hash` | `text` | ✔ | Argon2id (paramètres dans #22) |
+| `password_hash` | `text` | ✔ | Argon2id, 19 Mio de mémoire, 2 itérations, 1 fil (minimum recommandé par l'OWASP) |
 | `display_name` | `text` | ✔ | Nom affiché aux autres membres |
 | `locale` | `text` | ✔ | Langue de l'interface, `en` par défaut |
 | `preferences` | `jsonb` | ✔ | Préférences d'accessibilité (animations des dés, taille de la grille…). `{}` par défaut : jamais `null` |
@@ -253,10 +253,10 @@ Index : recherche du bestiaire sur `monster (creature_type, challenge_rating, si
 |---|---|---|---|
 | `id` | `uuid` PK | ✔ | |
 | `user_id` | `uuid` FK `app_user` | ✔ | |
-| `token_hash` | `text` unique | ✔ | Empreinte du jeton ; le jeton lui-même n'est jamais stocké |
+| `token_hash` | `text` unique | ✔ | Empreinte SHA-256 du jeton (256 bits aléatoires) ; le jeton lui-même n'est jamais stocké |
 | `client` | enum `web`, `mobile` | ✔ | Cookie de session (web) ou jeton porteur (mobile) |
-| `expires_at` | `timestamptz` | ✔ | |
-| `revoked_at` | `timestamptz` | | Déconnexion |
+| `expires_at` | `timestamptz` | ✔ | 7 jours après l'ouverture, sans prolongation |
+| `revoked_at` | `timestamptz` | | Déconnexion. Une session déjà révoquée garde sa première date |
 
 #### `campaign`
 
