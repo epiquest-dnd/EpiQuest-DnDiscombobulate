@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 /**
  * Message renvoyé par le serveur ou le moteur de règles.
  *
@@ -6,7 +8,11 @@
  *
  * @example { code: 'spell.slotUnavailable', params: { level: 3 } }
  */
-export interface Message {
-  code: string;
-  params?: Record<string, string | number>;
-}
+export const messageSchema = z
+  .object({
+    code: z.string(),
+    params: z.record(z.string(), z.union([z.string(), z.number()])).optional(),
+  })
+  .meta({ id: 'Message' });
+
+export type Message = z.infer<typeof messageSchema>;
